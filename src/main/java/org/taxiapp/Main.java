@@ -9,8 +9,7 @@ import java.util.List;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) {
-        System.out.println("Test");
-        Map map = new Map(10);
+        Map map = new Map(11);
     }
 
     public boolean testAddToMap(String reg, Location loc){

@@ -7,6 +7,7 @@ public class Location {
     private int y;
     private List<Taxi> taxis;
     private List<User> users;
+    private String mapTile;
 
     public int getX() {
         return x;
@@ -24,8 +25,13 @@ public class Location {
         return users;
     }
 
+    public String getMapTile() {
+        return mapTile;
+    }
+
     public Location(int x, int y){
         this.x = x;
         this.y = y;
+        this.mapTile = "|_|";
     }
 }
