@@ -1,4 +1,5 @@
 package org.taxiapp.classes;
 
-public class Taxi {
+public class Taxi extends User{
+
 }
