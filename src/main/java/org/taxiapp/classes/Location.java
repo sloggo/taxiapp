@@ -1,5 +1,8 @@
 package org.taxiapp.classes;
 
+import org.taxiapp.classes.users.Taxi;
+import org.taxiapp.classes.users.User;
+
 import java.util.List;
 
 public class Location {
