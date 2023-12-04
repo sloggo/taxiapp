@@ -1,5 +1,4 @@
 package org.taxiapp.classes;
 
-public class User {
-
+public class Ride {
 }
