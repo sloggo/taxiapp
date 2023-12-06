@@ -2,7 +2,7 @@ package org.taxiapp.classes;
 
 import org.taxiapp.interfaces.*;
 
-
+import org.taxiapp.classes.users.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
