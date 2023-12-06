@@ -7,10 +7,16 @@ import org.taxiapp.interfaces.Observer;
 
 public class Taxi extends User implements Observer {
     private int rate; // eur/km base rate
-    public Taxi(Location location, String registration){
-        super(location, registration);
+    public Taxi(String registration, Location location){
+        super(registration);
+        setLocation(location);
         this.rate = 10;
         this.type = "taxi";
+    }
+
+    public void setLocation(Location locationIn){
+        location = locationIn;
+        locationIn.addUser(this);
     }
 
     @Override

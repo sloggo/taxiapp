@@ -1,5 +1,6 @@
 package org.taxiapp.classes;
 
+import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.User;
 
 import java.lang.reflect.Array;
@@ -25,22 +26,7 @@ public class Map {
         for(int i=0; i<mapRadius; i++) { // columns
             for (int j = 0; j < mapRadius; j++) { // rows
                 Location location = grid[i][j];
-
-                if(location.isUsersOnTile()) {
-                    List<User> usersOnTile = location.getUsers();
-                    for(User user : usersOnTile){
-                        String type = user.getType();
-                        switch (type){
-                            case("customer"):
-                                System.out.print("|c|");
-                                break;
-                            case("taxi"):
-                                System.out.print("|t|");
-                        }
-                    }
-                } else{
-                    System.out.print(location.getMapTile());
-                }
+                System.out.print(location.getMapTile());
             }
             System.out.println("");
         }
@@ -51,5 +37,9 @@ public class Map {
         int randomX = rand.nextInt(mapRadius);
         int randomY = rand.nextInt(mapRadius);
         return grid[randomX][randomY];
+    }
+
+    public Location getLocation(int x, int y){
+        return grid[x][y];
     }
 }

@@ -6,8 +6,7 @@ import org.taxiapp.classes.Rating;
 import org.taxiapp.classes.Ride;
 
 public abstract class User {
-    public User(Location location, String id){
-        setLocation(location);
+    public User(String id){
         this.id = id;
         this.type = "invalid";
     }
@@ -20,10 +19,6 @@ public abstract class User {
 
     public Location getLocation() {
         return location;
-    }
-    public void setLocation(Location locationIn) {
-        location = locationIn;
-        locationIn.addUser(this);
     }
 
     public double getRating() {

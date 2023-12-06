@@ -1,5 +1,6 @@
 package org.taxiapp.classes;
 
+import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Taxi;
 import org.taxiapp.classes.users.User;
 
@@ -10,7 +11,7 @@ public class Location {
     private int x;
     private int y;
     private List<Taxi> taxis;
-    private List<User> users;
+    private List<Customer> customers;
     private String mapTile;
 
     public int getX() {
@@ -21,12 +22,15 @@ public class Location {
         return y;
     }
 
-    public List<Taxi> getTaxis() {
-        return taxis;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Taxi> getTaxis(){
+        for(Taxi taxi: taxis){
+            System.out.println(taxi.getId());
+        }
+        return taxis;
     }
 
     public String getMapTile() {
@@ -37,18 +41,33 @@ public class Location {
         this.x = x;
         this.y = y;
         this.mapTile = "|_|";
-        this.users = new ArrayList<>();
+        this.customers = new ArrayList<>();
+        this.taxis = new ArrayList<>();
     }
 
-    public void addUser(User user){
-        users.add(user);
+    public void addUser(Customer customer){
+        System.out.println(customer.getId()+" added");
+        customers.add(customer);
+    }
+
+    public void addUser(Taxi taxi){
+        System.out.println(taxi.getId()+" added");
+        taxis.add(taxi);
     }
 
     public boolean isUsersOnTile(){
-        if(users.isEmpty()){
+        if(!(customers.isEmpty() && taxis.isEmpty())){
             return false;
         } else{
             return true;
         }
+    }
+
+    public List<User> getUsers(){
+        List<User> users = new ArrayList<>();
+        users.addAll(taxis);
+        users.addAll(customers);
+
+        return users;
     }
 }
