@@ -3,6 +3,7 @@ package org.taxiapp.classes;
 import org.taxiapp.classes.users.Taxi;
 import org.taxiapp.classes.users.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Location {
@@ -36,5 +37,18 @@ public class Location {
         this.x = x;
         this.y = y;
         this.mapTile = "|_|";
+        this.users = new ArrayList<>();
+    }
+
+    public void addUser(User user){
+        users.add(user);
+    }
+
+    public boolean isUsersOnTile(){
+        if(users.isEmpty()){
+            return false;
+        } else{
+            return true;
+        }
     }
 }
