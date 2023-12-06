@@ -15,6 +15,10 @@ public class Main implements VehicleHiringTest {
         Map map = new Map(20);
         Customer customer = new Customer(map.getRandomLoc(),"sloggo");
         Taxi taxi = new Taxi(map.getRandomLoc(),"12mh4084");
+        Taxi taxi2 = new Taxi(map.getRandomLoc(),"11D0392");
+        Taxi taxi3 = new Taxi(map.getRandomLoc(),"231LI1928");
+
+
 
         map.printMap();
     }

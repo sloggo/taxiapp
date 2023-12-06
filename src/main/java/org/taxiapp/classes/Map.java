@@ -25,13 +25,21 @@ public class Map {
         for(int i=0; i<mapRadius; i++) { // columns
             for (int j = 0; j < mapRadius; j++) { // rows
                 Location location = grid[i][j];
-                System.out.print(location.getMapTile());
 
                 if(location.isUsersOnTile()) {
                     List<User> usersOnTile = location.getUsers();
                     for(User user : usersOnTile){
-                        System.out.print(user.getType());
+                        String type = user.getType();
+                        switch (type){
+                            case("customer"):
+                                System.out.print("|c|");
+                                break;
+                            case("taxi"):
+                                System.out.print("|t|");
+                        }
                     }
+                } else{
+                    System.out.print(location.getMapTile());
                 }
             }
             System.out.println("");
