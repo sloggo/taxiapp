@@ -13,14 +13,20 @@ import java.util.List;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) {
-        Map map = new Map(5);
+        Map map = new Map(20);
         Customer customer = new Customer("sloggo", map.getLocation(1,1));
-        Taxi taxi = new Taxi("12mh4084", map.getLocation(0,1));
+        Taxi taxi = new Taxi("taxi1", map.getLocation(0,5));
+        Taxi taxi2 = new Taxi("taxi2", map.getLocation(0,3));
+
         map.printMap();
 
         RideRequestSystem r = new RideRequestSystem(map, customer);
         Taxi closest = r.closestTaxi();
-        System.out.println("Closest: "+closest.getId());
+        if(closest!= null){
+            System.out.println("Closest taxi is "+closest.getId());
+        } else{
+            System.out.println("No taxis nearby!");
+        }
     }
 
     public boolean testAddToMap(String reg, Location loc){

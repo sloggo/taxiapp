@@ -35,14 +35,27 @@ public class RideRequestSystem implements Subject {
     }
     public Taxi closestTaxi(){
         List<Taxi> taxis = requester.getLocation().getTaxis();
+        boolean taxisFound = false;
+        int range = 1;
         // first pass check customer location for taxis in immediate vicinity
         if(!taxis.isEmpty()){
+            taxisFound = true;
             return taxis.get(0);
         } else {
-            taxis = incrementSearch(1);
-            System.out.println(taxis.get(0).getId());
-            return null;
+            while(!taxisFound){
+                try{
+                    taxis = incrementSearch(range);
+                    if(!taxis.isEmpty()){
+                        taxisFound=true;
+                        return taxis.get(0);
+                    }
+                    range++;
+                } catch(IndexOutOfBoundsException e){
+                    return null;
+                }
+            }
         }
+        return null;
     }
 
     public List<Taxi> incrementSearch(int startRange){
@@ -53,10 +66,17 @@ public class RideRequestSystem implements Subject {
         int yStart = requester.getLocation().getY() + startRange;
         int yEnd = requester.getLocation().getY() - startRange;
 
+        //incase range falls off map
+        if(xStart < 0) { xStart = 0; };
+        if(yEnd < 0) { yEnd = 0; };
+
         // loop through top row
         for(int i=xStart; i<=xEnd; i++){
             System.out.println("X:"+i+", Y:"+yEnd);
-            List<Taxi> taxisOnTile = map.getLocation(i, yEnd).getTaxis();
+            List<Taxi> taxisOnTile = map.getLocation(i,yEnd).getTaxis();
+            if(taxisOnTile.isEmpty()){
+                System.out.println("Empty TILE");
+            }
             validTaxis.addAll(taxisOnTile);
         }
 
@@ -64,6 +84,29 @@ public class RideRequestSystem implements Subject {
         for(int i=xStart; i<=xEnd; i++){
             System.out.println("X:"+i+", Y:"+yStart);
             List<Taxi> taxisOnTile = map.getLocation(i, yStart).getTaxis();
+            if(taxisOnTile.isEmpty()){
+                System.out.println("Empty TILE");
+            }
+            validTaxis.addAll(taxisOnTile);
+        }
+
+        // loop through left row
+        for(int i=yStart+1; i<yEnd; i++){
+            System.out.println("X:"+xStart+", Y:"+i);
+            List<Taxi> taxisOnTile = map.getLocation(xStart, i).getTaxis();
+            if(taxisOnTile.isEmpty()){
+                System.out.println("Empty TILE");
+            }
+            validTaxis.addAll(taxisOnTile);
+        }
+
+        // loop through right row
+        for(int i=yStart+1; i<yEnd; i++){
+            System.out.println("X:"+xEnd+", Y:"+i);
+            List<Taxi> taxisOnTile = map.getLocation(xEnd, i).getTaxis();
+            if(taxisOnTile.isEmpty()){
+                System.out.println("Empty TILE");
+            }
             validTaxis.addAll(taxisOnTile);
         }
 

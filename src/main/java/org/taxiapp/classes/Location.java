@@ -51,7 +51,7 @@ public class Location {
     }
 
     public void addUser(Taxi taxi){
-        System.out.println(taxi.getId()+" added");
+        System.out.println(taxi.getId()+" added to x:"+x+", y:"+y);
         taxis.add(taxi);
     }
 
