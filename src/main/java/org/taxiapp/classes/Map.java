@@ -25,7 +25,7 @@ public class Map {
     public void printMap(){
         for(int i=0; i<mapRadius; i++) { // columns
             for (int j = 0; j < mapRadius; j++) { // rows
-                Location location = grid[i][j];
+                Location location = grid[j][i]; // changed as was mixed up
                 System.out.print(location.getMapTile());
             }
             System.out.println("");
@@ -41,5 +41,9 @@ public class Map {
 
     public Location getLocation(int x, int y){
         return grid[x][y];
+    }
+
+    public int getMapRadius(){
+        return mapRadius;
     }
 }

@@ -72,6 +72,7 @@ public class RideRequestSystem implements Subject {
 
         // loop through top row
         for(int i=xStart; i<=xEnd; i++){
+            if(i >= map.getMapRadius() || i < 0){continue;};
             System.out.println("X:"+i+", Y:"+yEnd);
             List<Taxi> taxisOnTile = map.getLocation(i,yEnd).getTaxis();
             if(taxisOnTile.isEmpty()){
@@ -82,6 +83,7 @@ public class RideRequestSystem implements Subject {
 
         // loop through bottom row
         for(int i=xStart; i<=xEnd; i++){
+            if(i >= map.getMapRadius() || i < 0){continue;};
             System.out.println("X:"+i+", Y:"+yStart);
             List<Taxi> taxisOnTile = map.getLocation(i, yStart).getTaxis();
             if(taxisOnTile.isEmpty()){
@@ -91,7 +93,8 @@ public class RideRequestSystem implements Subject {
         }
 
         // loop through left row
-        for(int i=yStart+1; i<yEnd; i++){
+        for(int i=yEnd+1; i<yStart; i++){
+            if(i >= map.getMapRadius() || i < 0){continue;};
             System.out.println("X:"+xStart+", Y:"+i);
             List<Taxi> taxisOnTile = map.getLocation(xStart, i).getTaxis();
             if(taxisOnTile.isEmpty()){
@@ -101,7 +104,8 @@ public class RideRequestSystem implements Subject {
         }
 
         // loop through right row
-        for(int i=yStart+1; i<yEnd; i++){
+        for(int i=yEnd+1; i<yStart; i++){
+            if(i >= map.getMapRadius() || i < 0){continue;};
             System.out.println("X:"+xEnd+", Y:"+i);
             List<Taxi> taxisOnTile = map.getLocation(xEnd, i).getTaxis();
             if(taxisOnTile.isEmpty()){

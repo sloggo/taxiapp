@@ -40,7 +40,7 @@ public class Location {
     public Location(int x, int y){
         this.x = x;
         this.y = y;
-        this.mapTile = "|_|";
+        this.mapTile = ".\t";
         this.customers = new ArrayList<>();
         this.taxis = new ArrayList<>();
     }
@@ -48,11 +48,13 @@ public class Location {
     public void addUser(Customer customer){
         System.out.println(customer.getId()+" added");
         customers.add(customer);
+        mapTile = "c\t";
     }
 
     public void addUser(Taxi taxi){
         System.out.println(taxi.getId()+" added to x:"+x+", y:"+y);
         taxis.add(taxi);
+        mapTile = "t\t";
     }
 
     public boolean isUsersOnTile(){
