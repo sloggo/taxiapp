@@ -1,5 +1,6 @@
 package org.taxiapp;
 
+import org.taxiapp.classes.LinkedList;
 import org.taxiapp.classes.Location;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.users.Customer;
@@ -21,6 +22,18 @@ public class Main implements VehicleHiringTest {
 
 
         map.printMap();
+
+        /*LinkedList<Integer> list = new LinkedList<>();
+        list.insert(1,1);
+
+        list.insert(50,1);
+
+        list.insert(2003, 200);
+
+        list.printList();
+        list.insert(200,0);
+        list.printList();*/
+
     }
 
     public boolean testAddToMap(String reg, Location loc){
