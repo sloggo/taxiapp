@@ -2,6 +2,7 @@ package org.taxiapp.classes;
 
 public class LinkedList<T> {
     private Node head;
+    private Node current;
     private int n;
 
     private class Node {
@@ -17,7 +18,7 @@ public class LinkedList<T> {
         n=0;
 
     }
-    public boolean isEmpty(){
+    /*public boolean isEmpty(){
         if(head == null){
             return true;
         }
@@ -47,6 +48,20 @@ public class LinkedList<T> {
             return temp.data;
         }
     }
+    public void add(T e){
+        if(isEmpty()){
+            head = new Node(e);
+            n++;
+            return;
+        }
+        Node tmp = head;
+        while(tmp.next!=null){
+            tmp = tmp.next;
+        }
+        tmp.next = new Node(e);
+        n++;
+    }
+
     public void insert(T e, int i){
         //i is index + 1, list is zero indexed
         //if empty insert at head
@@ -113,11 +128,101 @@ public class LinkedList<T> {
         //else remove node at index i
         Node tmp = head;
         for (int j = 0; j < i-1; j++) {
-            tmp = head.next;
+            tmp = tmp.next;
         }
         tmp.next = tmp.next.next;
         n--;
     }
+    public void remove(T e){
+        if(isEmpty()){
+            return;
+        }
+        boolean isContained = true;
+
+        Node tmp = head;
+        if(e==head.data){
+            head = head.next;
+        }
+        else {
+            while (e != tmp.next.data) {
+                if (tmp.data == null) {
+                    isContained = false;
+                    break;
+                }
+                tmp = tmp.next;
+            }
+            if (!isContained) {
+                System.out.println("not contained");
+                return;
+            }
+        tmp.next = tmp.next.next;
+        }
+        n--;
+
+    }*/
+    public boolean isEmpty(){
+        return head == null;
+    }
+    public int length(){
+        return n;
+    }
+    public Boolean hasNext(){
+        return current.next != null;
+    }
+    public void moveForward(){
+        if(hasNext() && current!=null){
+            current = current.next;
+        }
+    }
+    public void moveBackward(){
+        if(current!=null && current!= head){
+            Node tmp = head;
+            while (head.next!=current) {
+                tmp = tmp.next;
+            }
+            current = tmp;
+        }
+
+    }
+    public void append(T value){
+        Node newNode = new Node(value);
+        if(head == null){
+            head = newNode;
+            current = head;
+            return;
+        }
+        while(hasNext()){
+            moveForward();
+        }
+        current.next = newNode;
+    }
+    public void remove(T e){
+        if(isEmpty()){
+            return;
+        }
+        if(head.data == e){
+            head = head.next;
+        }
+        current = head;
+        Node prev = null;
+        while ( current!=null && current.data != e){
+            prev = current;
+            current = current.next;
+        }
+        if(current == null){
+            return;
+        }
+        prev.next = current.next;
+        current = head;
+    }
+    public T retrieveCurrent(){
+        return current.data;
+    }
+    public void getHead(){
+        current = head;
+    }
+
+
     public void printList(){
         Node tmp = head;
         while (tmp!=null){

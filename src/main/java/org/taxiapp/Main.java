@@ -3,6 +3,7 @@ package org.taxiapp;
 import org.taxiapp.classes.LinkedList;
 import org.taxiapp.classes.Location;
 import org.taxiapp.classes.Map;
+import org.taxiapp.classes.RideRequestSystem;
 import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Taxi;
 import org.taxiapp.classes.users.User;
@@ -22,6 +23,12 @@ public class Main implements VehicleHiringTest {
 
 
         map.printMap();
+        RideRequestSystem rrs = new RideRequestSystem(map,customer);
+        rrs.attachObserver(taxi);
+        rrs.attachObserver(taxi2);
+        rrs.attachObserver(taxi3);
+        //rrs.detachObserver(taxi);
+        rrs.detachObserver(taxi2);
 
         /*LinkedList<Integer> list = new LinkedList<>();
         list.insert(1,1);
