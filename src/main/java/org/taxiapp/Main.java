@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) {
-        /*Map map = new Map(20);
+        Map map = new Map(20);
         Customer customer = new Customer(map.getRandomLoc(),"sloggo");
         Taxi taxi = new Taxi(map.getRandomLoc(),"12mh4084");
         Taxi taxi2 = new Taxi(map.getRandomLoc(),"11D0392");
@@ -21,9 +21,9 @@ public class Main implements VehicleHiringTest {
 
 
 
-        map.printMap();*/
+        map.printMap();
 
-        LinkedList<Integer> list = new LinkedList<>();
+        /*LinkedList<Integer> list = new LinkedList<>();
         list.insert(1,1);
 
         list.insert(50,1);
@@ -32,7 +32,7 @@ public class Main implements VehicleHiringTest {
 
         list.printList();
         list.insert(200,0);
-        list.printList();
+        list.printList();*/
 
     }
 
