@@ -14,7 +14,7 @@ public class MapUserIntegrationTest {
         Map map = new Map(5);
         Customer customer = new Customer("customerTest", map.getLocation(1,1));
 
-        assertEquals(map.getLocation(1,1), customer.getLocation()); // ensure location is the same point in memory
+        assertTrue(false); // ensure location is the same point in memory
         assertEquals(map.getLocation(1,1).getCustomers().get(0), customer); // ensure customer is the same point in memory
     }
 
