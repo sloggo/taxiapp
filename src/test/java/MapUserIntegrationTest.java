@@ -2,7 +2,9 @@ import org.taxiapp.classes.Map;
 import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Taxi;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 
 public class MapUserIntegrationTest {
@@ -13,7 +15,7 @@ public class MapUserIntegrationTest {
         Map map = new Map(5);
         Customer customer = new Customer("customerTest", map.getLocation(1,1));
 
-        assertTrue(false); // ensure location is the same point in memory
+        assertEquals(map.getLocation(1,1), customer.getLocation()); // ensure location is the same point in memory
         assertEquals(map.getLocation(1,1).getCustomers().get(0), customer); // ensure customer is the same point in memory
     }
 
