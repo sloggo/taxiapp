@@ -6,9 +6,10 @@ import org.taxiapp.classes.Rating;
 import org.taxiapp.classes.Ride;
 
 public abstract class User {
-    public User(String id){
+    public User(String id, Map map){
         this.id = id;
         this.type = "invalid";
+        this.map = map;
     }
     protected Map map;
     protected Location location;

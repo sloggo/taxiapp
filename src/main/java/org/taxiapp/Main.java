@@ -14,9 +14,9 @@ import java.util.List;
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) {
         Map map = new Map(20);
-        Customer customer = new Customer("sloggo", map.getLocation(1,1));
-        Taxi taxi = new Taxi("taxi1", map.getLocation(0,5));
-        Taxi taxi2 = new Taxi("taxi2", map.getLocation(0,3));
+        Customer customer = new Customer("sloggo", map, 1,1);
+        Taxi taxi = new Taxi("taxi1", map, 0,4);
+        Taxi taxi2 = new Taxi("taxi2", map, 17,6);
 
         map.printMap();
 

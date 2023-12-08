@@ -7,16 +7,16 @@ import java.util.UUID;
 
 public class Customer extends User{
     private String name;
-    public Customer(String name, Location location){
-        super(UUID.randomUUID().toString());
-        setLocation(location);
+    public Customer(String name, Map map, int x, int y){
+        super(UUID.randomUUID().toString(), map);
+        setLocation(x,y);
         this.name = name;
         this.type = "customer";
     }
 
-    public void setLocation(Location locationIn){
-        location = locationIn;
-        locationIn.addUser(this);
+    public void setLocation(int x, int y){
+        location = map.getLocation(x,y);
+        location.addUser(this);
     }
 
 

@@ -10,9 +10,9 @@ public class RideRequestTest{
     @Test
     public void testImmediateVicinity(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(10,10));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,10,10);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
 
         RideRequestSystem request = new RideRequestSystem(map, user);
         Taxi closest = request.closestTaxi(20);
@@ -23,9 +23,9 @@ public class RideRequestTest{
     @Test
     public void testLeftSide(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(9,10));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,9,10);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
 
         RideRequestSystem request = new RideRequestSystem(map, user);
         Taxi closest = request.closestTaxi(20);
@@ -35,9 +35,9 @@ public class RideRequestTest{
     @Test
     public void testRightSide(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(11,10));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,11,10);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -48,9 +48,9 @@ public class RideRequestTest{
     @Test
     public void testTopLeftCorner(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(8,8));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,8,8);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -62,9 +62,9 @@ public class RideRequestTest{
     @Test
     public void testTopRightCorner(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(11,9));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,11,9);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -76,9 +76,9 @@ public class RideRequestTest{
     @Test
     public void testBottomLeftCorner(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(9,11));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,9,11);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -89,9 +89,9 @@ public class RideRequestTest{
     @Test
     public void testBottomRightCorner(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(11,11));
-        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
+        Customer user = new Customer("testCustomer", map,10,10);
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map,11,11);
+        Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map,0,0);
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -103,7 +103,7 @@ public class RideRequestTest{
     @Test
     public void testNoneFound(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
+        Customer user = new Customer("testCustomer", map,10,10);
 
         RideRequestSystem request = new RideRequestSystem(map, user);
         Taxi closest = request.closestTaxi(20);
@@ -114,8 +114,8 @@ public class RideRequestTest{
     @Test
     public void testZeroValues(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(4,4));
-        Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 0,0)); // fix 0 bug
+        Customer user = new Customer("testCustomer", map,4,4);
+        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 0,0); // fix 0 bug
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -127,8 +127,8 @@ public class RideRequestTest{
     @Test
     public void testFallOffMap(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(2,10));
-        Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 10,8));
+        Customer user = new Customer("testCustomer", map,2,10);
+        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 10,8);
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -140,8 +140,8 @@ public class RideRequestTest{
     @Test
     public void testOppositeCorners(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(0,0));
-        Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 19,19)); // fix 0 bug
+        Customer user = new Customer("testCustomer", map,0,0);
+        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 19,19); // fix 0 bug
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
