@@ -13,7 +13,7 @@ public class RideRequestSystem implements Subject {
     private String rideId;
     private Map map;
     private Customer requester;
-    private List<Observer> observers = new ArrayList();
+    private LinkedList<Observer> observers = new LinkedList<>();
     public RideRequestSystem(Map map, Customer requester){
         this.rideId = UUID.randomUUID().toString();
         this.map = map;
@@ -21,7 +21,7 @@ public class RideRequestSystem implements Subject {
     }
     @Override
     public void attachObserver(Observer observer) {
-        observers.add(observer);
+        observers.append(observer);
     }
     @Override
     public void detachObserver(Observer observer) {
@@ -29,8 +29,11 @@ public class RideRequestSystem implements Subject {
     }
     @Override
     public void notifyObservers() {
-        for (Observer o :observers) {
+        observers.getHead();
+        while (observers.hasNext()) {
+            Observer o = observers.retrieveCurrent();
             o.update();
+            observers.moveForward();
         }
     }
 
