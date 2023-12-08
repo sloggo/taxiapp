@@ -12,6 +12,7 @@ public class Customer extends User{
         setLocation(x,y);
         this.name = name;
         this.type = "customer";
+        map.addCustomer(this);
     }
 
     public void setLocation(int x, int y){

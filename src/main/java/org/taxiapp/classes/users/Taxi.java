@@ -12,6 +12,7 @@ public class Taxi extends User implements Observer {
         setLocation(x,y);
         this.rate = 10;
         this.type = "taxi";
+        map.addTaxi(this);
     }
 
     public void setLocation(int x, int y){
