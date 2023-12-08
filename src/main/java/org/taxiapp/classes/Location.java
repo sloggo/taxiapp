@@ -26,12 +26,7 @@ public class Location {
         return customers;
     }
 
-    public List<Taxi> getTaxis(){
-        for(Taxi taxi: taxis){
-            System.out.println(taxi.getId());
-        }
-        return taxis;
-    }
+    public List<Taxi> getTaxis(){ return taxis; }
 
     public String getMapTile() {
         return mapTile;
