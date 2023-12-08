@@ -1,9 +1,9 @@
-import org.junit.Test;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Taxi;
 
 import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
 
 public class MapUserIntegrationTest {
     // main intent of this test is to ensure the locations holding the users and taxis are updated in every class when updated,

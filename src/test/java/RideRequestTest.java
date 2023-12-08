@@ -1,4 +1,4 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.RideRequestSystem;
 import org.taxiapp.classes.users.Customer;
