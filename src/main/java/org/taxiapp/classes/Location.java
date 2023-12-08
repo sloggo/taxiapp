@@ -58,11 +58,11 @@ public class Location {
     }
 
     public boolean isUsersOnTile(){
-        if(!(customers.isEmpty() && taxis.isEmpty())){
-            return false;
-        } else{
-            return true;
-        }
+        return customers.isEmpty() && taxis.isEmpty();
+    }
+
+    public boolean isTaxisOnTile(){
+        return !taxis.isEmpty();
     }
 
     public List<User> getUsers(){

@@ -33,7 +33,7 @@ public class RideRequestSystem implements Subject {
             o.update();
         }
     }
-    public Taxi closestTaxi(){
+    public Taxi closestTaxi(int limit){
         List<Taxi> taxis = requester.getLocation().getTaxis();
         boolean taxisFound = false;
         int range = 1;
@@ -42,7 +42,7 @@ public class RideRequestSystem implements Subject {
             taxisFound = true;
             return taxis.get(0);
         } else {
-            while(!taxisFound){
+            while(!taxisFound && range < limit){
                 try{
                     taxis = incrementSearch(range);
                     if(!taxis.isEmpty()){
@@ -77,55 +77,34 @@ public class RideRequestSystem implements Subject {
         if(yStart >= map.getMapRadius()) { yStart = map.getMapRadius()-1; };
 
 
-        // loop through top row
+        // loop through top and bottom row
         for(int i=xStart; i<=xEnd; i++){
-            if(i >= map.getMapRadius() || i < 0){continue;};
-            System.out.println("X:"+i+", Y:"+yEnd);
-            List<Taxi> taxisOnTile = map.getLocation(i,yEnd).getTaxis();
-            if(taxisOnTile.isEmpty()){
-                System.out.println("Empty TILE");
+            Location topLocation = map.getLocation(i,yEnd);
+            Location bottomLocation = map.getLocation(i, yStart);
+            Location[] locationsToSearch = {topLocation, bottomLocation};
+
+            for(Location location: locationsToSearch){
+                if(location.isTaxisOnTile()){ // improve efficiency by not searching empty tiles, improves from 27ms to 25ms
+                    List<Taxi> taxisOnTileT = location.getTaxis();
+                    validTaxis.addAll(taxisOnTileT);
+                }
             }
-            validTaxis.addAll(taxisOnTile);
         }
 
-        // loop through bottom row
-        for(int i=xStart; i<=xEnd; i++){
-            if(i >= map.getMapRadius() || i < 0){continue;};
-            System.out.println("X:"+i+", Y:"+yStart);
-            List<Taxi> taxisOnTile = map.getLocation(i, yStart).getTaxis();
-            if(taxisOnTile.isEmpty()){
-                System.out.println("Empty TILE");
-            }
-            validTaxis.addAll(taxisOnTile);
-        }
-
-        // loop through left row
+        // loop through left and right row
         for(int i=yEnd+1; i<yStart; i++){
-            if(i >= map.getMapRadius() || i < 0){continue;};
-            System.out.println("X:"+xStart+", Y:"+i);
-            List<Taxi> taxisOnTile = map.getLocation(xStart, i).getTaxis();
-            if(taxisOnTile.isEmpty()){
-                System.out.println("Empty TILE");
+            Location leftLocation = map.getLocation(xStart, i);
+            Location rightLocation = map.getLocation(xEnd, i);
+            Location[] locationsToSearch = {leftLocation, rightLocation};
+
+            for(Location location: locationsToSearch){ // get all taxis from both sides
+                if(location.isTaxisOnTile()){
+                    List<Taxi> taxisOnTile = location.getTaxis();
+                    validTaxis.addAll(taxisOnTile);
+                }
             }
-            validTaxis.addAll(taxisOnTile);
         }
-
-        // loop through right row
-        for(int i=yEnd+1; i<yStart; i++){
-            if(i >= map.getMapRadius() || i < 0){continue;};
-            System.out.println("X:"+xEnd+", Y:"+i);
-            List<Taxi> taxisOnTile = map.getLocation(xEnd, i).getTaxis();
-            if(taxisOnTile.isEmpty()){
-                System.out.println("Empty TILE");
-            }
-            validTaxis.addAll(taxisOnTile);
-        }
-
-        for(Taxi validTaxi : validTaxis){
-            System.out.println("available taxis:");
-            System.out.print(validTaxi.getId()+", ");
-        }
-
         return validTaxis;
     }
+
 }

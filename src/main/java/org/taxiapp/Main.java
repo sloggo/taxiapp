@@ -21,7 +21,7 @@ public class Main implements VehicleHiringTest {
         map.printMap();
 
         RideRequestSystem r = new RideRequestSystem(map, customer);
-        Taxi closest = r.closestTaxi();
+        Taxi closest = r.closestTaxi(20);
         if(closest!= null){
             System.out.println("Closest taxi is "+closest.getId());
         } else{

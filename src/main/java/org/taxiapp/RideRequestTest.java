@@ -18,7 +18,7 @@ public class RideRequestTest{
         Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -31,7 +31,7 @@ public class RideRequestTest{
         Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -44,7 +44,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -57,7 +57,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -71,7 +71,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -85,7 +85,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -98,7 +98,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
@@ -109,7 +109,7 @@ public class RideRequestTest{
         Customer user = new Customer("testCustomer", map.getLocation(10,10));
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertNull(closest);
     }
@@ -122,7 +122,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiFurther.getId());
     }
@@ -135,7 +135,7 @@ public class RideRequestTest{
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi();
+        Taxi closest = request.closestTaxi(20);
 
         assertEquals(closest.getId(), taxiFurther.getId());
     }
