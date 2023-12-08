@@ -69,6 +69,13 @@ public class RideRequestSystem implements Subject {
         // in-case range falls off map
         if(xStart < 0) { xStart = 0; };
         if(yEnd < 0) { yEnd = 0; };
+        if(xEnd < 0) { xEnd = 0; };
+        if(yStart < 0) { yStart = 0; };
+        if(xStart >= map.getMapRadius()) { xStart = map.getMapRadius()-1; };
+        if(yEnd >= map.getMapRadius()) { yEnd = map.getMapRadius()-1; };
+        if(xEnd >= map.getMapRadius()) { xEnd = map.getMapRadius()-1; };
+        if(yStart >= map.getMapRadius()) { yStart = map.getMapRadius()-1; };
+
 
         // loop through top row
         for(int i=xStart; i<=xEnd; i++){
