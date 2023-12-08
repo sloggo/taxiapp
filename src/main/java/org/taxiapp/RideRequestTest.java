@@ -52,7 +52,7 @@ public class RideRequestTest{
     public void testTopLeftCorner(){
         Map map = new Map(20);
         Customer user = new Customer("testCustomer", map.getLocation(10,10));
-        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(9,9));
+        Taxi taxiClosest = new Taxi("testTaxiOnTile", map.getLocation(8,8));
         Taxi taxiFurther = new Taxi("testTaxiOnTileFurther", map.getLocation(0,0));
         map.printMap();
 
@@ -115,7 +115,7 @@ public class RideRequestTest{
     }
     // test if the radius search works with the 0 x and y values
     @Test
-    public void testEdgeOfMap(){
+    public void testZeroValues(){
         Map map = new Map(20);
         Customer user = new Customer("testCustomer", map.getLocation(10,10));
         Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 0,0)); // fix 0 bug

@@ -66,7 +66,7 @@ public class RideRequestSystem implements Subject {
         int yStart = requester.getLocation().getY() + startRange;
         int yEnd = requester.getLocation().getY() - startRange;
 
-        //incase range falls off map
+        // in-case range falls off map
         if(xStart < 0) { xStart = 0; };
         if(yEnd < 0) { yEnd = 0; };
 
