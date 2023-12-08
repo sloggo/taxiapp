@@ -33,6 +33,7 @@ public class RideRequestSystem implements Subject {
             o.update();
         }
     }
+
     public Taxi closestTaxi(int limit){
         List<Taxi> taxis = requester.getLocation().getTaxis();
         boolean taxisFound = false;

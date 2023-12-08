@@ -5,7 +5,7 @@ import org.taxiapp.classes.Map;
 
 import java.util.UUID;
 
-public class Customer extends User {
+public class Customer extends User{
     private String name;
     public Customer(String name, Location location){
         super(UUID.randomUUID().toString());
