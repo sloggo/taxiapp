@@ -1,5 +1,3 @@
-package org.taxiapp.tests;
-
 import org.junit.Test;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.RideRequestSystem;
