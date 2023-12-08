@@ -1,11 +1,8 @@
-package org.taxiapp;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.RideRequestSystem;
 import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Taxi;
-
 import static org.junit.Assert.*;
 
 public class RideRequestTest{
@@ -117,7 +114,7 @@ public class RideRequestTest{
     @Test
     public void testZeroValues(){
         Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map.getLocation(10,10));
+        Customer user = new Customer("testCustomer", map.getLocation(4,4));
         Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 0,0)); // fix 0 bug
         map.printMap();
 
@@ -132,6 +129,19 @@ public class RideRequestTest{
         Map map = new Map(20);
         Customer user = new Customer("testCustomer", map.getLocation(2,10));
         Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 10,8));
+        map.printMap();
+
+        RideRequestSystem request = new RideRequestSystem(map, user);
+        Taxi closest = request.closestTaxi(20);
+
+        assertEquals(closest.getId(), taxiFurther.getId());
+    }
+
+    @Test
+    public void testOppositeCorners(){
+        Map map = new Map(20);
+        Customer user = new Customer("testCustomer", map.getLocation(0,0));
+        Taxi taxiFurther = new Taxi("testTaxiOnTile", map.getLocation( 19,19)); // fix 0 bug
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
