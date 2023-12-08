@@ -22,7 +22,7 @@ public class RideRequestTest{
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
-
+    // test all corners and sides to see if the radius search returns the correct taxi
     @Test
     public void testLeftSide(){
         Map map = new Map(20);
@@ -35,7 +35,6 @@ public class RideRequestTest{
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
-
     @Test
     public void testRightSide(){
         Map map = new Map(20);
@@ -49,7 +48,6 @@ public class RideRequestTest{
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
-
     @Test
     public void testTopLeftCorner(){
         Map map = new Map(20);
@@ -91,7 +89,6 @@ public class RideRequestTest{
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
-
     @Test
     public void testBottomRightCorner(){
         Map map = new Map(20);
@@ -105,7 +102,7 @@ public class RideRequestTest{
 
         assertEquals(closest.getId(), taxiClosest.getId());
     }
-
+    // test if the radius search returns the correct value when no taxis are found
     @Test
     public void testNoneFound(){
         Map map = new Map(20);
@@ -116,7 +113,7 @@ public class RideRequestTest{
 
         assertNull(closest);
     }
-
+    // test if the radius search works with the 0 x and y values
     @Test
     public void testEdgeOfMap(){
         Map map = new Map(20);
@@ -129,7 +126,7 @@ public class RideRequestTest{
 
         assertEquals(closest.getId(), taxiFurther.getId());
     }
-
+    // test if the radius search still works when a part of the radius falls outside the range of the map
     @Test
     public void testFallOffMap(){
         Map map = new Map(20);
