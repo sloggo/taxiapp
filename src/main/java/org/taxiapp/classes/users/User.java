@@ -13,7 +13,7 @@ public abstract class User {
     }
     protected Map map;
     protected Location location;
-    protected Rating[] ratings;
+    protected int[] ratings;
     protected Ride currentRide;
     protected String id;
     protected String type;
