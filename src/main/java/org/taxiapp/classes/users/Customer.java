@@ -15,19 +15,10 @@ public class Customer extends User{
         map.addCustomer(this);
     }
 
-    public Customer(String name, Map map, int x, int y, String id){ // for loading customers
-        super(id, map);
-        setLocation(x,y);
-        this.name = name;
-        this.type = "customer";
-        map.loadCustomer(this);
-    }
-
     public void setLocation(int x, int y){
         location = map.getLocation(x,y);
         location.addUser(this);
     }
 
-    public String getName(){return name;}
 
 }

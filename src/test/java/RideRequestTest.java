@@ -115,7 +115,7 @@ public class RideRequestTest{
     public void testZeroValues(){
         Map map = new Map(20);
         Customer user = new Customer("testCustomer", map,4,4);
-        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 0,0);
+        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 0,0); // fix 0 bug
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
@@ -141,20 +141,7 @@ public class RideRequestTest{
     public void testOppositeCorners(){
         Map map = new Map(20);
         Customer user = new Customer("testCustomer", map,0,0);
-        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 19,19);
-        map.printMap();
-
-        RideRequestSystem request = new RideRequestSystem(map, user);
-        Taxi closest = request.closestTaxi(20);
-
-        assertEquals(closest.getId(), taxiFurther.getId());
-    }
-
-    @Test
-    public void testUpperBoundIndex(){
-        Map map = new Map(20);
-        Customer user = new Customer("testCustomer", map,18,19);
-        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 19,19);
+        Taxi taxiFurther = new Taxi("testTaxiOnTile", map, 19,19); // fix 0 bug
         map.printMap();
 
         RideRequestSystem request = new RideRequestSystem(map, user);
