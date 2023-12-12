@@ -15,35 +15,9 @@ public class Taxi extends User implements Observer {
         map.addTaxi(this);
     }
 
-    public Taxi(String registration, Map map, int x, int y, int rate, int[] ratings){ //loading
-        super(registration, map);
-        setLocation(x,y);
-        this.rate = 10;
-        this.type = "taxi";
-        this.rate = rate;
-        map.loadTaxi(this);
-        this.ratings = ratings;
-    }
-    public Taxi(String registration, Map map, int x, int y, int rate){
-        super(registration, map);
-        setLocation(x,y);
-        this.rate = 10;
-        this.type = "taxi";
-        this.rate = rate;
-        map.loadTaxi(this);
-    }
-
     public void setLocation(int x, int y){
         location = map.getLocation(x,y);
         location.addUser(this);
-    }
-
-    public int getRate(){
-        return rate;
-    }
-
-    public int[] getRatings(){
-        return ratings;
     }
 
     @Override

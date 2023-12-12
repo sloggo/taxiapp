@@ -10,14 +10,23 @@ import org.taxiapp.interfaces.VehicleHiringTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) {
         Map map = new Map(20);
+        Customer customer = new Customer("sloggo", map, 1,1);
+        Taxi taxi = new Taxi("taxi1", map, 0,4);
+        Taxi taxi2 = new Taxi("taxi2", map, 17,6);
+
         map.printMap();
-        map.logCurrentTaxis();
-        map.logCurrentCustomers();
+
+        RideRequestSystem r = new RideRequestSystem(map, customer);
+        Taxi closest = r.closestTaxi(20);
+        if(closest!= null){
+            System.out.println("Closest taxi is "+closest.getId());
+        } else{
+            System.out.println("No taxis nearby!");
+        }
     }
 
     public boolean testAddToMap(String reg, Location loc){
