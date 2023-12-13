@@ -33,6 +33,7 @@ public class Map {
         }
 
         importTaxis();
+        importCustomers();
     }
 
     public Map(int r, String id, boolean test) throws IOException {
@@ -51,6 +52,7 @@ public class Map {
 
         if(!test){
             importTaxis();
+            importCustomers();
         }
     }
 
@@ -67,6 +69,21 @@ public class Map {
                             ratings[i - 5] = Integer.parseInt(values[i]);
                         }
                         new Taxi(values[1], this, Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), ratings);
+                    }
+                }
+            }
+        }
+    }
+
+    public void importCustomers() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader("customers.csv"))) {
+            String newLine;
+            while ((newLine = reader.readLine()) != null) {
+                // Check if the line is not empty or just whitespace
+                if (!newLine.trim().isEmpty()) {
+                    String[] values = newLine.split(",");
+                    if (values[0].equals(id)) {
+                        new Customer(values[1], values[2], this, Integer.parseInt(values[3]), Integer.parseInt(values[4]));
                     }
                 }
             }

@@ -15,17 +15,7 @@ import java.util.List;
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) throws IOException {
         Map map = new Map(20, "main", false);
-        Customer customer = new Customer("sloggo", map, 1,1);
-
         map.printMap();
-
-        RideRequestSystem r = new RideRequestSystem(map, customer);
-        Taxi closest = r.closestTaxi(20);
-        if(closest!= null){
-            System.out.println("Closest taxi is "+closest.getId());
-        } else{
-            System.out.println("No taxis nearby!");
-        }
     }
 
     public boolean testAddToMap(String reg, Location loc){

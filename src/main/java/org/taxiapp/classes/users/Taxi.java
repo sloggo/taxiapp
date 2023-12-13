@@ -54,7 +54,6 @@ public class Taxi extends User implements Observer {
             }
             String line = String.join(",",values);
             writer.write(line);
-            System.out.println(line);
             writer.newLine();
         }catch (IOException e) {
             throw new RuntimeException(e);
