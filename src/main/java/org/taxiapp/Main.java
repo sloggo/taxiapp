@@ -8,15 +8,14 @@ import org.taxiapp.classes.users.Taxi;
 import org.taxiapp.classes.users.User;
 import org.taxiapp.interfaces.VehicleHiringTest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main implements VehicleHiringTest {
-    public static void main(String[] args) {
-        Map map = new Map(20);
+    public static void main(String[] args) throws IOException {
+        Map map = new Map(20, "main", false);
         Customer customer = new Customer("sloggo", map, 1,1);
-        Taxi taxi = new Taxi("taxi1", map, 0,4);
-        Taxi taxi2 = new Taxi("taxi2", map, 17,6);
 
         map.printMap();
 
