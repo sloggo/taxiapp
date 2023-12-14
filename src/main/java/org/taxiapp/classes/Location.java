@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Location {
+    private String id;
     private int x;
     private int y;
     private List<Taxi> taxis;
@@ -33,6 +34,7 @@ public class Location {
     }
 
     public Location(int x, int y){
+        this.id = "("+x+","+y+")";
         this.x = x;
         this.y = y;
         this.mapTile = ".\t";
@@ -55,6 +57,7 @@ public class Location {
     public boolean isUsersOnTile(){
         return customers.isEmpty() && taxis.isEmpty();
     }
+    public String getId(){return id;}
 
     public boolean isTaxisOnTile(){
         return !taxis.isEmpty();

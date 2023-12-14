@@ -14,8 +14,11 @@ import java.util.List;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) throws IOException {
-        Map map = new Map(20, "main", false);
+        Map map = new Map(20, "main", true);
+
+        Taxi t = new Taxi("slsl",map,5,2);
         map.printMap();
+        t.pathfindTo(map.getLocation(0,0));
     }
 
     public boolean testAddToMap(String reg, Location loc){

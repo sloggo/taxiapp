@@ -56,6 +56,10 @@ public class Map {
         }
     }
 
+    public Location[][] getGrid(){
+        return grid;
+    }
+
     public void importTaxis() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader("taxis.csv"))) {
             String newLine;
@@ -64,11 +68,15 @@ public class Map {
                 if (!newLine.trim().isEmpty()) {
                     String[] values = newLine.split(",");
                     if (values[0].equals(id)) {
-                        int[] ratings = new int[values.length - 5];
-                        for (int i = 5; i < values.length; i++) {
-                            ratings[i - 5] = Integer.parseInt(values[i]);
+                        if(values.length > 5){
+                            int[] ratings = new int[values.length - 5];
+                            for (int i = 5; i < values.length; i++) {
+                                ratings[i - 5] = Integer.parseInt(values[i]);
+                            }
+                            new Taxi(values[1], this, Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), ratings);
+                        } else{
+                            new Taxi(values[1], this, Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), new int[0]);
                         }
-                        new Taxi(values[1], this, Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), ratings);
                     }
                 }
             }
