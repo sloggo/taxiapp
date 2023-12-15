@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class RideRequestSystem implements Subject {
+    private LinkedList<Taxi> declinedTaxis;
     private Location destination;
     private int currentRadius;
     private int radiusLimit;
@@ -22,6 +23,9 @@ public class RideRequestSystem implements Subject {
         this.rideId = UUID.randomUUID().toString();
         this.map = map;
         this.requester = requester;
+        this.destination = destination;
+        this.currentRadius = 1;
+        this.radiusLimit = map.getMapRadius();
     }
     @Override
     public void attachObserver(Observer observer) {
@@ -44,20 +48,18 @@ public class RideRequestSystem implements Subject {
     public Taxi closestTaxi(){
         LinkedList<Taxi> taxis = requester.getLocation().getTaxis();
         boolean taxisFound = false;
-        int range = 1;
         // first pass check customer location for taxis in immediate vicinity
         if(!taxis.isEmpty()){
             taxisFound = true;
             return taxis.get(0);
         } else {
-            while(!taxisFound && range < radiusLimit){
+            while(!taxisFound && currentRadius < radiusLimit){
                 try{
                     taxis = incrementSearch();
                     if(!taxis.isEmpty()){
                         taxisFound=true;
                         return taxis.get(0);
                     }
-                    currentRadius++;
                 } catch(IndexOutOfBoundsException e){
                     return null;
                 }
@@ -87,7 +89,6 @@ public class RideRequestSystem implements Subject {
 
         // loop through top and bottom row
         for(int i=xStart; i<=xEnd; i++){
-            validTaxis.pointToHead();
             Location topLocation = map.getLocation(i,yEnd);
             Location bottomLocation = map.getLocation(i, yStart);
             Location[] locationsToSearch = {topLocation, bottomLocation};
@@ -120,19 +121,22 @@ public class RideRequestSystem implements Subject {
                 }
             }
         }
-        validTaxis.printList();
+        currentRadius++;
         return validTaxis;
     }
 
     public void requestRide(){
         radiusLimit = map.getMapRadius();
         currentRadius = 1;
-        boolean userAccepted;
+        boolean userAccepted = false;
         while(!userAccepted){
             Taxi potentialTaxi = closestTaxi();
+            if(declinedTaxis.contains(potentialTaxi)){continue;}
             boolean isAccepted = offerTaxi(potentialTaxi);
             if(isAccepted){
                 new Ride(rideId, map, requester, potentialTaxi, destination);
+            } else{
+                declinedTaxis.append(potentialTaxi);
             }
         }
     }
@@ -156,6 +160,7 @@ public class RideRequestSystem implements Subject {
                 return false;
             }
         }
+        return false;
     }
 
 }
