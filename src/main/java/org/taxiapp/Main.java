@@ -17,7 +17,7 @@ import java.util.List;
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) throws IOException {
         Map map = new Map(20, "main", false);
-        Customer customer = new Customer("sloggo", map, 1,1);
+        map.printMap();
     }
 
     public boolean testAddToMap(String reg, Location loc){

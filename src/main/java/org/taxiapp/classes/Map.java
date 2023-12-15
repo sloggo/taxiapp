@@ -48,10 +48,28 @@ public class Map {
 
         if(!test){
             importTaxis();
+            importCustomers();
         }
     }
     public String getId(){
         return id;
+    }
+
+    public void importCustomers() throws IOException {
+        File yourFile = new File(id+"-customers.csv");
+        yourFile.createNewFile(); // if file already exists will do nothing
+        try (BufferedReader reader = new BufferedReader(new FileReader(id+"-customers.csv"))) {
+            String newLine;
+            while ((newLine = reader.readLine()) != null) {
+                // Check if the line is not empty or just whitespace
+                if (!newLine.trim().isEmpty()) {
+                    String[] values = newLine.split(",");
+                    if (values[0].equals(id)) {
+                        new Customer(values[1], values[2], this, Integer.parseInt(values[3]), Integer.parseInt(values[4]));
+                    }
+                }
+            }
+        }
     }
 
     public void printMap(){
