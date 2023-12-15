@@ -4,17 +4,18 @@ import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Taxi;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class Map {
     private Location[][] grid;
     private int mapRadius;
-    private List<Taxi> taxis;
-    private List<Customer> customers;
+    private LinkedList<Taxi> taxis;
+    private LinkedList<Customer> customers;
     public Map(int r){
-        this.customers = new ArrayList<>();
-        this.taxis = new ArrayList<>();
+        this.customers = new LinkedList<>();
+        this.taxis = new LinkedList<>();
         this.grid = new Location[r][r];
         this.mapRadius = r;
 
