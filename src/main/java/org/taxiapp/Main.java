@@ -16,7 +16,14 @@ import java.util.List;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) throws IOException {
-        Map map = new Map(20, "main", false);
+        Map map = new Map(20, "main", true);
+        Customer sloggo = new Customer("sloggo",map, 1,1);
+        Taxi taxi1 = new Taxi("taxi1",map, 6,8);
+        Taxi taxi2 = new Taxi("taxi2",map, 15,18);
+
+        RideRequestSystem s = new RideRequestSystem(map, sloggo, map.getLocation(0,0));
+        s.requestRide();
+
         map.printMap();
     }
 

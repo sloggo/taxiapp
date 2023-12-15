@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class RideRequestSystem implements Subject {
-    private LinkedList<Taxi> declinedTaxis;
+    private LinkedList<String> declinedTaxis;
     private Location destination;
     private int currentRadius;
     private int radiusLimit;
@@ -26,6 +26,7 @@ public class RideRequestSystem implements Subject {
         this.destination = destination;
         this.currentRadius = 1;
         this.radiusLimit = map.getMapRadius();
+        this.declinedTaxis = new LinkedList<>();
     }
     @Override
     public void attachObserver(Observer observer) {
@@ -131,13 +132,14 @@ public class RideRequestSystem implements Subject {
         boolean userAccepted = false;
         while(!userAccepted){
             Taxi potentialTaxi = closestTaxi();
-            if(declinedTaxis.contains(potentialTaxi)){continue;}
+            if(declinedTaxis.contains(potentialTaxi.getId())){continue;}
             boolean isAccepted = offerTaxi(potentialTaxi);
             if(isAccepted){
                 new Ride(rideId, map, requester, potentialTaxi, destination);
             } else{
-                declinedTaxis.append(potentialTaxi);
+                declinedTaxis.append(potentialTaxi.getId());
             }
+            currentRadius++;
         }
     }
 
