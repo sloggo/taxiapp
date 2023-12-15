@@ -7,14 +7,18 @@ import org.taxiapp.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class RideRequestSystem implements Subject {
+    private Location destination;
+    private int currentRadius;
+    private int radiusLimit;
     private String rideId;
     private Map map;
     private Customer requester;
     private LinkedList<Observer> observers = new LinkedList<>();
-    public RideRequestSystem(Map map, Customer requester){
+    public RideRequestSystem(Map map, Customer requester, Location destination){
         this.rideId = UUID.randomUUID().toString();
         this.map = map;
         this.requester = requester;
@@ -37,7 +41,7 @@ public class RideRequestSystem implements Subject {
         }
     }
 
-    public Taxi closestTaxi(int limit){
+    public Taxi closestTaxi(){
         LinkedList<Taxi> taxis = requester.getLocation().getTaxis();
         boolean taxisFound = false;
         int range = 1;
@@ -46,14 +50,14 @@ public class RideRequestSystem implements Subject {
             taxisFound = true;
             return taxis.get(0);
         } else {
-            while(!taxisFound && range < limit){
+            while(!taxisFound && range < radiusLimit){
                 try{
-                    taxis = incrementSearch(range);
+                    taxis = incrementSearch();
                     if(!taxis.isEmpty()){
                         taxisFound=true;
                         return taxis.get(0);
                     }
-                    range++;
+                    currentRadius++;
                 } catch(IndexOutOfBoundsException e){
                     return null;
                 }
@@ -62,13 +66,13 @@ public class RideRequestSystem implements Subject {
         return null;
     }
 
-    public LinkedList<Taxi> incrementSearch(int startRange){
+    public LinkedList<Taxi> incrementSearch() {
         LinkedList<Taxi> validTaxis = new LinkedList<>();
-        int xStart = requester.getLocation().getX() - startRange;
-        int xEnd = requester.getLocation().getX() + startRange;
+        int xStart = requester.getLocation().getX() - currentRadius;
+        int xEnd = requester.getLocation().getX() + currentRadius;
 
-        int yStart = requester.getLocation().getY() + startRange;
-        int yEnd = requester.getLocation().getY() - startRange;
+        int yStart = requester.getLocation().getY() + currentRadius;
+        int yEnd = requester.getLocation().getY() - currentRadius;
 
         // in-case range falls off map
         if(xStart < 0) { xStart = 0; };
@@ -109,6 +113,40 @@ public class RideRequestSystem implements Subject {
             }
         }
         return validTaxis;
+    }
+
+    public void requestRide(){
+        radiusLimit = map.getMapRadius();
+        currentRadius = 1;
+        boolean userAccepted;
+        while(!userAccepted){
+            Taxi potentialTaxi = closestTaxi();
+            boolean isAccepted = offerTaxi(potentialTaxi);
+            if(isAccepted){
+                new Ride(rideId, map, requester, potentialTaxi, destination);
+            }
+        }
+    }
+
+    private boolean offerTaxi(Taxi taxi) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Taxi found!");
+        System.out.println("------------------------");
+        System.out.println(taxi.getId());
+        System.out.println(taxi.getRating());
+
+        System.out.println("\n Accept? Y/N");
+        boolean validInput = false;
+        while(!validInput){
+            String input = scanner.nextLine().toLowerCase().trim();
+            if(input.equals("y")){
+                validInput=true;
+                return true;
+            } else if(input.equals("n")){
+                validInput=true;
+                return false;
+            }
+        }
     }
 
 }
