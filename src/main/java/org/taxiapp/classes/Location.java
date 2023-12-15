@@ -10,8 +10,8 @@ import java.util.List;
 public class Location {
     private int x;
     private int y;
-    private List<Taxi> taxis;
-    private List<Customer> customers;
+    private LinkedList<Taxi> taxis;
+    private LinkedList<Customer> customers;
     private String mapTile;
 
     public int getX() {
@@ -22,11 +22,11 @@ public class Location {
         return y;
     }
 
-    public List<Customer> getCustomers() {
+    public LinkedList<Customer> getCustomers() {
         return customers;
     }
 
-    public List<Taxi> getTaxis(){ return taxis; }
+    public LinkedList<Taxi> getTaxis(){ return taxis; }
 
     public String getMapTile() {
         return mapTile;
@@ -36,19 +36,19 @@ public class Location {
         this.x = x;
         this.y = y;
         this.mapTile = ".\t";
-        this.customers = new ArrayList<>();
-        this.taxis = new ArrayList<>();
+        this.customers = new LinkedList<>();
+        this.taxis = new LinkedList<>();
     }
 
     public void addUser(Customer customer){
         System.out.println(customer.getId()+" added");
-        customers.add(customer);
+        customers.append(customer);
         mapTile = "c\t";
     }
 
     public void addUser(Taxi taxi){
         System.out.println(taxi.getId()+" added to x:"+x+", y:"+y);
-        taxis.add(taxi);
+        taxis.append(taxi);
         mapTile = "t\t";
     }
 
@@ -60,8 +60,8 @@ public class Location {
         return !taxis.isEmpty();
     }
 
-    public List<User> getUsers(){
-        List<User> users = new ArrayList<>();
+    public LinkedList<User> getUsers(){
+        LinkedList<User> users = new LinkedList<>();
         users.addAll(taxis);
         users.addAll(customers);
 

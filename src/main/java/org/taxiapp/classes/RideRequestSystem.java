@@ -38,7 +38,7 @@ public class RideRequestSystem implements Subject {
     }
 
     public Taxi closestTaxi(int limit){
-        List<Taxi> taxis = requester.getLocation().getTaxis();
+        LinkedList<Taxi> taxis = requester.getLocation().getTaxis();
         boolean taxisFound = false;
         int range = 1;
         // first pass check customer location for taxis in immediate vicinity
@@ -62,8 +62,8 @@ public class RideRequestSystem implements Subject {
         return null;
     }
 
-    public List<Taxi> incrementSearch(int startRange){
-        List<Taxi> validTaxis = new ArrayList<>();
+    public LinkedList<Taxi> incrementSearch(int startRange){
+        LinkedList<Taxi> validTaxis = new LinkedList<>();
         int xStart = requester.getLocation().getX() - startRange;
         int xEnd = requester.getLocation().getX() + startRange;
 
@@ -89,7 +89,7 @@ public class RideRequestSystem implements Subject {
 
             for(Location location: locationsToSearch){
                 if(location.isTaxisOnTile()){ // improve efficiency by not searching empty tiles, improves from 27ms to 25ms
-                    List<Taxi> taxisOnTileT = location.getTaxis();
+                    LinkedList<Taxi> taxisOnTileT = location.getTaxis();
                     validTaxis.addAll(taxisOnTileT);
                 }
             }
@@ -103,7 +103,7 @@ public class RideRequestSystem implements Subject {
 
             for(Location location: locationsToSearch){ // get all taxis from both sides
                 if(location.isTaxisOnTile()){
-                    List<Taxi> taxisOnTile = location.getTaxis();
+                    LinkedList<Taxi> taxisOnTile = location.getTaxis();
                     validTaxis.addAll(taxisOnTile);
                 }
             }

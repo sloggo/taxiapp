@@ -1,12 +1,15 @@
 package org.taxiapp.classes.users;
 
+import org.taxiapp.classes.LinkedList;
 import org.taxiapp.classes.Location;
+import org.taxiapp.classes.LocationNode;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.users.User;
 import org.taxiapp.interfaces.Observer;
 
 public class Taxi extends User implements Observer {
     private int rate; // eur/km base rate
+
     public Taxi(String registration, Map map, int x, int y){
         super(registration, map);
         setLocation(x,y);
@@ -19,6 +22,14 @@ public class Taxi extends User implements Observer {
         location = map.getLocation(x,y);
         location.addUser(this);
     }
+    public void calcPath(Location destination){
+        Pathfinding p = new Pathfinding();
+        LinkedList<LocationNode> path = p.search(map.getMapRadius(),this.location,destination);
+        path.pointToHead();
+        path.printList();
+    }
+
+
 
     @Override
     public void update() {
