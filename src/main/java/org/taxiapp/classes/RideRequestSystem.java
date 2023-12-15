@@ -130,8 +130,10 @@ public class RideRequestSystem implements Subject {
         radiusLimit = map.getMapRadius();
         currentRadius = 1;
         boolean userAccepted = false;
-        while(!userAccepted){
+        boolean noTaxisLeft = false;
+        while(!userAccepted && !noTaxisLeft){
             Taxi potentialTaxi = closestTaxi();
+            if(currentRadius == radiusLimit || potentialTaxi == null){noTaxisLeft = true; continue;}
             if(declinedTaxis.contains(potentialTaxi.getId())){continue;}
             boolean isAccepted = offerTaxi(potentialTaxi);
             if(isAccepted){
@@ -140,6 +142,9 @@ public class RideRequestSystem implements Subject {
                 declinedTaxis.append(potentialTaxi.getId());
             }
             currentRadius++;
+        }
+        if(noTaxisLeft){
+            System.out.println("No Taxis found in the given area at the time; Try again later!");
         }
     }
 
