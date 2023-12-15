@@ -2,6 +2,10 @@ package org.taxiapp.classes.users;
 
 import org.taxiapp.classes.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 public class Pathfinding {
     private LocationNode start, goal, current;
@@ -124,10 +128,15 @@ public class Pathfinding {
     }
     private LinkedList<LocationNode> trackThePath(){
         LocationNode pathNode = goal;
+        List<LocationNode> pathListList = new ArrayList<>();
         LinkedList<LocationNode> pathList = new LinkedList<>();
         while (pathNode!=start){
-            pathList.append(pathNode);
+            pathListList.add((pathNode));
             pathNode = pathNode.getParent();
+        }
+
+        for(int i=0; i<pathListList.size(); i++){
+            pathList.append(pathListList.get(pathListList.size()-1-i));
         }
         return pathList;
     }
