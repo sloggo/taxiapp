@@ -22,7 +22,9 @@ public class Taxi extends User implements Observer {
         this.type = "taxi";
         this.ratings = new int[0];
         map.addTaxi(this);
-        addTaxiToCSV();
+        if(!map.isTest()){
+            addTaxiToCSV();
+        }
     }
     public Taxi(String registration, Map map, int x, int y, int rate, int[] ratings){
         super(registration, map);

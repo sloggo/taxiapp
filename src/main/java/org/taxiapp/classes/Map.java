@@ -119,4 +119,5 @@ public class Map {
         }
         return currentCustomers;
     }
+    public boolean isTest(){return test;}
 }
