@@ -10,35 +10,14 @@ import org.taxiapp.classes.users.Taxi;
 import org.taxiapp.classes.users.User;
 import org.taxiapp.interfaces.VehicleHiringTest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main implements VehicleHiringTest {
-    public static void main(String[] args) {
-        Map map = new Map(20);
-        Customer customer = new Customer("sloggo", map, 1,1);
-        Taxi taxi = new Taxi("taxi1", map, 0,4);
-        Taxi taxi2 = new Taxi("taxi2", map, 17,6);
-
-        //map.printMap();
-        taxi.calcPath(customer.getLocation());
-
-    }
-    public void closestTaxiDebug(){
-        Map map = new Map(20);
-        Customer customer = new Customer("sloggo", map, 1,1);
-        Taxi taxi = new Taxi("taxi1", map, 0,4);
-        Taxi taxi2 = new Taxi("taxi2", map, 17,6);
-
+    public static void main(String[] args) throws IOException {
+        Map map = new Map(20, "main", false);
         map.printMap();
-
-        RideRequestSystem r = new RideRequestSystem(map, customer);
-        Taxi closest = r.closestTaxi(20);
-        if(closest!= null){
-            System.out.println("Closest taxi is "+closest.getId());
-        } else{
-            System.out.println("No taxis nearby!");
-        }
     }
 
     public boolean testAddToMap(String reg, Location loc){

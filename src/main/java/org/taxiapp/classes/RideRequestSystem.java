@@ -87,6 +87,7 @@ public class RideRequestSystem implements Subject {
 
         // loop through top and bottom row
         for(int i=xStart; i<=xEnd; i++){
+            validTaxis.pointToHead();
             Location topLocation = map.getLocation(i,yEnd);
             Location bottomLocation = map.getLocation(i, yStart);
             Location[] locationsToSearch = {topLocation, bottomLocation};
@@ -94,13 +95,17 @@ public class RideRequestSystem implements Subject {
             for(Location location: locationsToSearch){
                 if(location.isTaxisOnTile()){ // improve efficiency by not searching empty tiles, improves from 27ms to 25ms
                     LinkedList<Taxi> taxisOnTileT = location.getTaxis();
-                    validTaxis.addAll(taxisOnTileT);
+                    taxisOnTileT.printList();
+                    if(!taxisOnTileT.isEmpty()){
+                        return taxisOnTileT;
+                    }
                 }
             }
         }
 
         // loop through left and right row
         for(int i=yEnd+1; i<yStart; i++){
+            validTaxis.pointToHead();
             Location leftLocation = map.getLocation(xStart, i);
             Location rightLocation = map.getLocation(xEnd, i);
             Location[] locationsToSearch = {leftLocation, rightLocation};
@@ -108,10 +113,14 @@ public class RideRequestSystem implements Subject {
             for(Location location: locationsToSearch){ // get all taxis from both sides
                 if(location.isTaxisOnTile()){
                     LinkedList<Taxi> taxisOnTile = location.getTaxis();
-                    validTaxis.addAll(taxisOnTile);
+                    taxisOnTile.printList();
+                    if(!taxisOnTile.isEmpty()){
+                        return taxisOnTile;
+                    }
                 }
             }
         }
+        validTaxis.printList();
         return validTaxis;
     }
 
