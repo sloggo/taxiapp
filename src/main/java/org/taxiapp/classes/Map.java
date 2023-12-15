@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.LinkedList;
-
 public class Map {
     private boolean test;
     private String id;
@@ -35,8 +33,8 @@ public class Map {
     public Map(int r, String id, boolean test) throws IOException {
         this.test = test;
         this.id = id;
-        this.customers = new LinkedList<>();
-        this.taxis = new LinkedList<>();
+        this.customers = new LinkedList();
+        this.taxis = new LinkedList();
         this.grid = new Location[r][r];
         this.mapRadius = r;
 
@@ -119,20 +117,20 @@ public class Map {
         return mapRadius;
     }
 
-    public void addTaxi(Taxi taxi){ taxis.add(taxi); }
+    public void addTaxi(Taxi taxi){ taxis.append(taxi); }
 
-    public void addCustomer(Customer customer) { customers.add(customer); }
+    public void addCustomer(Customer customer) { customers.append(customer); }
 
     public Taxi[] logCurrentTaxis(){
-        Taxi[] currentTaxis = new Taxi[taxis.size()];
-        for(int i=0; i<taxis.size(); i++){
+        Taxi[] currentTaxis = new Taxi[taxis.length()];
+        for(int i=0; i<taxis.length(); i++){
             currentTaxis[i] = taxis.get(i);
         }
         return currentTaxis;
     }
     public Customer[] logCurrentCustomers(){
-        Customer[] currentCustomers = new Customer[customers.size()];
-        for(int i=0; i<customers.size(); i++){
+        Customer[] currentCustomers = new Customer[customers.length()];
+        for(int i=0; i<customers.length(); i++){
             currentCustomers[i] = customers.get(i);
         }
         return currentCustomers;
