@@ -99,6 +99,8 @@ public class Taxi extends User implements Subject {
             o.update(this);
             observers.moveForward();
         }
+        Observer o = observers.retrieveCurrent();
+        o.update(this);
     }
     @Override
     public Location getLocation(){

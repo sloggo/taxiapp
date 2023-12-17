@@ -154,4 +154,12 @@ public class RideRequestSystem {
         return false;
     }
 
+    public LinkedList<Taxi> allTaxisInRange(int r){
+        LinkedList<Taxi> taxis = new LinkedList<>();
+        for(int i=1; i<=r; i++){
+            taxis.addAll(incrementSearch());
+        }
+        return taxis;
+    }
+
 }

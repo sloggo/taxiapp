@@ -75,6 +75,24 @@ public class Location {
         return !customers.isEmpty();
     }
 
+    public LinkedList<String> getTaxiRegs(){
+        LinkedList<String> taxiRegs = new LinkedList<>();
+        if(!taxiRegs.isEmpty()){
+            taxis.getHead();
+            while (taxis.hasNext()) {
+                Taxi node = taxis.retrieveCurrent();
+                taxiRegs.append(node.getId());
+
+                taxis.moveForward();
+            }
+            Taxi node = taxis.retrieveCurrent();
+            taxiRegs.append(node.getId());
+
+            taxis.moveForward();
+        }
+        return taxiRegs;
+    }
+
     public LinkedList<User> getUsers(){
         LinkedList<User> users = new LinkedList<>();
         users.addAll(taxis);

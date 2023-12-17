@@ -49,8 +49,29 @@ public class Map {
             importCustomers();
         }
     }
+    public LinkedList<String> getTaxiRegs(){
+        LinkedList<String> taxiRegs = new LinkedList<>();
+        if(!taxiRegs.isEmpty()){
+            taxis.getHead();
+            while (taxis.hasNext()) {
+                Taxi node = taxis.retrieveCurrent();
+                taxiRegs.append(node.getId());
+
+                taxis.moveForward();
+            }
+            Taxi node = taxis.retrieveCurrent();
+            taxiRegs.append(node.getId());
+
+            taxis.moveForward();
+        }
+        return taxiRegs;
+    }
     public String getId(){
         return id;
+    }
+
+    public void removeUser(Taxi taxi){
+        taxis.remove(taxi);
     }
 
     public void importCustomers() throws IOException {
