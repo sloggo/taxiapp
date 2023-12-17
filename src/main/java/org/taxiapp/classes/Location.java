@@ -37,16 +37,17 @@ public class Location {
     }
 
     public String getMapTile() {
-        if(isTaxisOnTile()){
-            return "t\t";
-        } else if(isCustomersOnTile()){
-            return "c\t";
-        } else if(road){
+        if (isTaxisOnTile()) {
+            return "\u001B[31m" + "t\t" + "\u001B[0m"; // Red color for taxis
+        } else if (isCustomersOnTile()) {
+            return "\u001B[34m" + "c\t" + "\u001B[0m"; // Blue color for customers
+        } else if (road) {
             return "*\t";
-        } else{
+        } else {
             return ".\t";
         }
     }
+
 
     public void addUser(Customer customer){
         System.out.println(customer.getId()+" added");
