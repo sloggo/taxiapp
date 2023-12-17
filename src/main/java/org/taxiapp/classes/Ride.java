@@ -30,15 +30,13 @@ public class Ride {
         // taxi moves to customer
         LinkedList<LocationNode> routeToCustomer = getTaxiToCustomerRoute();
         driver.moveTo(routeToCustomer);
-        Thread.sleep(1000);
         System.out.println("Arrived! Get in the car with reg: "+driver.getId());
-        map.printMap();
+        Thread.sleep(1000);
 
         // begin to move together
         setUpDriverCustomerObserver();
         LinkedList<LocationNode> taxiRoute = getTaxiRoute();
         driver.moveTo(taxiRoute);
-        map.printMap();
 
         System.out.println("You have arrived at your destination!");
         System.out.println("Your bill comes to a total of; "+cost);
