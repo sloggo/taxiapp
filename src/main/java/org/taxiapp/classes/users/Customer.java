@@ -1,14 +1,15 @@
 package org.taxiapp.classes.users;
 
-import org.taxiapp.classes.Location;
 import org.taxiapp.classes.Map;
+import org.taxiapp.interfaces.Observer;
+import org.taxiapp.interfaces.Subject;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.UUID;
 
-public class Customer extends User{
+public class Customer extends User implements Observer {
     private String name;
     public Customer(String name, Map map, int x, int y){
         super(UUID.randomUUID().toString(), map);
@@ -49,9 +50,23 @@ public class Customer extends User{
     }
 
     public void setLocation(int x, int y){
+        if(location != null){
+            location.removeUser(this);
+        }
         location = map.getLocation(x,y);
         location.addUser(this);
     }
 
-
+    @Override
+    public void update(Subject s){
+        setLocation(s.getLocation().getX(), s.getLocation().getY());
+    }
+    @Override
+    public void attach(Subject s){
+        s.attachObserver(this);
+    }
+    @Override
+    public void detach(Subject s){
+        s.detachObserver(this);
+    }
 }

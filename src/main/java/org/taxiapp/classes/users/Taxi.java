@@ -6,17 +6,20 @@ import org.taxiapp.classes.LocationNode;
 import org.taxiapp.classes.Map;
 import org.taxiapp.classes.users.User;
 import org.taxiapp.interfaces.Observer;
+import org.taxiapp.interfaces.Subject;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Taxi extends User implements Observer {
+public class Taxi extends User implements Subject {
     private int rate; // eur/km base rate
     private int[] ratings;
+    private LinkedList<Observer> observers;
 
     public Taxi(String registration, Map map, int x, int y){
         super(registration, map);
+        observers = new LinkedList<>();
         setLocation(x,y);
         this.rate = 10;
         this.type = "taxi";
@@ -28,6 +31,7 @@ public class Taxi extends User implements Observer {
     }
     public Taxi(String registration, Map map, int x, int y, int rate, int[] ratings){
         super(registration, map);
+        observers = new LinkedList<>();
         setLocation(x,y);
         this.rate = rate;
         this.type = "taxi";
@@ -56,8 +60,12 @@ public class Taxi extends User implements Observer {
         }
     }
     public void setLocation(int x, int y){
+        if(location != null){
+            location.removeUser(this);
+        }
         location = map.getLocation(x,y);
         location.addUser(this);
+        notifyObservers();
     }
     public void calcPath(Location destination){
         Pathfinding p = new Pathfinding();
@@ -66,20 +74,40 @@ public class Taxi extends User implements Observer {
         path.printList();
     }
 
-
-
     @Override
-    public void update() {
-
+    public void attachObserver(Observer observer) {
+        observers.append(observer);
+    }
+    @Override
+    public void detachObserver(Observer observer) {
+        observers.remove(observer);
+    }
+    @Override
+    public void notifyObservers() {
+        observers.getHead();
+        while (observers.hasNext()) {
+            Observer o = observers.retrieveCurrent();
+            o.update(this);
+            observers.moveForward();
+        }
+    }
+    @Override
+    public Location getLocation(){
+        return location;
     }
 
-    @Override
-    public void attach() {
-
-    }
-
-    @Override
-    public void detach() {
-
+    public void moveTo(LinkedList<LocationNode> path) throws InterruptedException {
+        path.printList();
+        path.getHead();
+        while (path.hasNext()) {
+            LocationNode node = path.retrieveCurrent();
+            int newX = node.getX();
+            int newY = node.getY();
+            setLocation(newX,newY);
+            System.out.println();
+            map.printMap();
+            Thread.sleep(500);
+            path.moveForward();
+        }
     }
 }

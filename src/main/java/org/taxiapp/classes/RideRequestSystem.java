@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class RideRequestSystem implements Subject {
+public class RideRequestSystem {
     private LinkedList<String> declinedTaxis;
     private Location destination;
     private int currentRadius;
@@ -18,7 +18,6 @@ public class RideRequestSystem implements Subject {
     private String rideId;
     private Map map;
     private Customer requester;
-    private LinkedList<Observer> observers = new LinkedList<>();
     public RideRequestSystem(Map map, Customer requester, Location destination){
         this.rideId = UUID.randomUUID().toString();
         this.map = map;
@@ -27,23 +26,6 @@ public class RideRequestSystem implements Subject {
         this.currentRadius = 1;
         this.radiusLimit = map.getMapRadius();
         this.declinedTaxis = new LinkedList<>();
-    }
-    @Override
-    public void attachObserver(Observer observer) {
-        observers.append(observer);
-    }
-    @Override
-    public void detachObserver(Observer observer) {
-        observers.remove(observer);
-    }
-    @Override
-    public void notifyObservers() {
-        observers.getHead();
-        while (observers.hasNext()) {
-            Observer o = observers.retrieveCurrent();
-            o.update();
-            observers.moveForward();
-        }
     }
 
     public Taxi closestTaxi(){
@@ -126,7 +108,7 @@ public class RideRequestSystem implements Subject {
         return validTaxis;
     }
 
-    public void requestRide(){
+    public void requestRide() throws InterruptedException {
         radiusLimit = map.getMapRadius();
         currentRadius = 1;
         boolean userAccepted = false;
@@ -135,9 +117,10 @@ public class RideRequestSystem implements Subject {
             Taxi potentialTaxi = closestTaxi();
             if(currentRadius == radiusLimit || potentialTaxi == null){noTaxisLeft = true; continue;}
             if(declinedTaxis.contains(potentialTaxi.getId())){continue;}
-            boolean isAccepted = offerTaxi(potentialTaxi);
-            if(isAccepted){
-                new Ride(rideId, map, requester, potentialTaxi, destination);
+            if(offerTaxi(potentialTaxi)){
+                userAccepted = true;
+                Ride r = new Ride(rideId, map, requester, potentialTaxi, destination);
+                r.startRide();
             } else{
                 declinedTaxis.append(potentialTaxi.getId());
             }

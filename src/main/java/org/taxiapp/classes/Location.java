@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Location {
+    private boolean road;
     private int x;
     private int y;
     private LinkedList<Taxi> taxis;
     private LinkedList<Customer> customers;
-    private String mapTile;
 
     public int getX() {
         return x;
@@ -29,13 +29,20 @@ public class Location {
     public LinkedList<Taxi> getTaxis(){ return taxis; }
 
     public String getMapTile() {
-        return mapTile;
+        if(isTaxisOnTile()){
+            return "t\t";
+        } else if(isCustomersOnTile()){
+            return "c\t";
+        } else if(road){
+            return "-\t";
+        } else{
+            return ".\t";
+        }
     }
 
     public Location(int x, int y){
         this.x = x;
         this.y = y;
-        this.mapTile = ".\t";
         this.customers = new LinkedList<>();
         this.taxis = new LinkedList<>();
     }
@@ -43,21 +50,29 @@ public class Location {
     public void addUser(Customer customer){
         System.out.println(customer.getId()+" added");
         customers.append(customer);
-        mapTile = "c\t";
     }
 
     public void addUser(Taxi taxi){
         System.out.println(taxi.getId()+" added to x:"+x+", y:"+y);
         taxis.append(taxi);
-        mapTile = "t\t";
     }
 
+    public void removeUser(Taxi taxi){
+        taxis.remove(taxi);
+    }
+    public void removeUser(Customer customer){
+        customers.remove(customer);
+    }
     public boolean isUsersOnTile(){
         return customers.isEmpty() && taxis.isEmpty();
     }
 
     public boolean isTaxisOnTile(){
         return !taxis.isEmpty();
+    }
+
+    public boolean isCustomersOnTile(){
+        return !customers.isEmpty();
     }
 
     public LinkedList<User> getUsers(){

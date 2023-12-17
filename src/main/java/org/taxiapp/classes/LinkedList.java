@@ -24,6 +24,9 @@ public class LinkedList<T> {
         return n;
     }
     public Boolean hasNext(){
+        if(head == null){
+            return false;
+        }
         return current.next != null;
     }
     public void moveForward(){

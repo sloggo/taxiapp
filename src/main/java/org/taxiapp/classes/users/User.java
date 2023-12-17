@@ -29,6 +29,7 @@ public abstract class User {
     public Ride getCurrentRide() {
         return currentRide;
     }
+    public void setCurrentRide(Ride cR){currentRide = cR;}
     public String getId() { return id; }
 
     public String getType() {return type;}
