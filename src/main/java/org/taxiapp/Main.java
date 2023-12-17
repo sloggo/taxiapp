@@ -29,44 +29,51 @@ public class Main implements VehicleHiringTest {
 //        }
         map.printMap();
         Customer current = null;
-
-        System.out.println("Welcome to BackSeat! Enter your username:");
         Scanner scanner = new Scanner(System.in);
+        boolean loggedIn = false;
 
-        while(current == null){
-            String query = scanner.nextLine();
-            if(map.findUser(query) != null){
-                current = map.findUser(query);
-            } else{
-                System.out.println("User does not exist! Try again.");
+        while(true){
+            if(!loggedIn){
+                System.out.println("Welcome to BackSeat! Enter your username:");
+            }
+
+            while(!loggedIn){
+                String query = scanner.nextLine();
+                if(map.findUser(query) != null){
+                    current = map.findUser(query);
+                    loggedIn = true;
+                } else{
+                    System.out.println("User does not exist! Try again.");
+                }
+            }
+
+            System.out.println("Where are we headed to?");
+            int xReq = -1;
+
+            while(xReq < 0 || xReq >= map.getMapRadius()){
+                System.out.println("X:");
+                xReq = scanner.nextInt();
+                if(xReq < 0 || xReq >= map.getMapRadius()){
+                    System.out.println("Not a valid coordinate, try between 0 and "+(map.getMapRadius()-1));
+                }
+            }
+
+            int yReq = -1;
+
+            while(yReq < 0 || yReq >= map.getMapRadius()){
+                System.out.println("Y:");
+                yReq = scanner.nextInt();
+                if(yReq < 0 || yReq >= map.getMapRadius()){
+                    System.out.println("Not a valid coordinate, try between 0 and "+(map.getMapRadius()-1));
+                }
+            }
+
+            if(yReq>0 && yReq<map.getMapRadius() && xReq>0 && xReq<map.getMapRadius() ){
+                RideRequestSystem rideRequestSystem = new RideRequestSystem(map, current, map.getLocation(xReq, yReq));
+                rideRequestSystem.requestRide();
             }
         }
 
-        System.out.println("Where are we headed to?");
-        int xReq = -1;
-
-        while(xReq < 0 || xReq >= map.getMapRadius()){
-            System.out.println("X:");
-            xReq = scanner.nextInt();
-            if(xReq < 0 || xReq >= map.getMapRadius()){
-                System.out.println("Not a valid coordinate, try between 0 and "+(map.getMapRadius()-1));
-            }
-        }
-
-        int yReq = -1;
-
-        while(yReq < 0 || yReq >= map.getMapRadius()){
-            System.out.println("Y:");
-            yReq = scanner.nextInt();
-            if(yReq < 0 || yReq >= map.getMapRadius()){
-                System.out.println("Not a valid coordinate, try between 0 and "+(map.getMapRadius()-1));
-            }
-        }
-
-        if(yReq>0 && yReq<map.getMapRadius() && xReq>0 && xReq<map.getMapRadius() ){
-            RideRequestSystem rideRequestSystem = new RideRequestSystem(map, current, map.getLocation(xReq, yReq));
-            rideRequestSystem.requestRide();
-        }
     }
 
     public boolean testAddToMap(Map map, String reg, Location loc){

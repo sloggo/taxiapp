@@ -98,6 +98,9 @@ public class LinkedList<T> {
 
 
     public T get(int i){
+        if(isEmpty()){
+            return null;
+        }
         pointToHead();
         if(i==0){
             return current.data;

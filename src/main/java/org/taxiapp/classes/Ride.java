@@ -31,7 +31,7 @@ public class Ride {
         LinkedList<LocationNode> routeToCustomer = getTaxiToCustomerRoute();
         driver.moveTo(routeToCustomer);
         System.out.println("Arrived! Get in the car with reg: "+driver.getId());
-        Thread.sleep(1000);
+        Thread.sleep(5000);
 
         // begin to move together
         setUpDriverCustomerObserver();
@@ -41,11 +41,19 @@ public class Ride {
         System.out.println("You have arrived at your destination!");
         System.out.println("Your bill comes to a total of; "+cost);
         rateTaxi();
+
+        driver.setCurrentRide(null);
+        passenger.setCurrentRide(null);
+        removeDriverCustomerObserver();
     }
 
     public void setUpDriverCustomerObserver(){
         driver.attachObserver(passenger);
     }
+    public void removeDriverCustomerObserver(){
+        driver.detachObserver(passenger);
+    }
+
 
     public LinkedList<LocationNode> getTaxiRoute(){
         Pathfinding pathfinder = new Pathfinding();

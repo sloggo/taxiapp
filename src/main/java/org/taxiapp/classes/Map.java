@@ -77,17 +77,22 @@ public class Map {
     public Customer findUser(String id){
         if(!customers.isEmpty()){
             customers.getHead();
+            boolean found = false;
             while (customers.hasNext()) {
+                Customer node = customers.retrieveCurrent();
+                if(node.getName().equals(id)){
+                    found = true;
+                    return node;
+                }
+                customers.moveForward();
+            }
+            if(!found){
                 Customer node = customers.retrieveCurrent();
                 if(node.getName().equals(id)){
                     return node;
                 }
-                taxis.moveForward();
             }
-            Customer node = customers.retrieveCurrent();
-            if(node.getName().equals(id)){
-                return node;
-            }
+
         }
         return null;
     }
