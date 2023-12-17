@@ -18,14 +18,12 @@ import java.util.Scanner;
 
 public class Main implements VehicleHiringTest {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Map map = new Map(20, "main", false);
+        Map map = new Map(15, "main", false);
 //        for(int i = 0; i<5; i++){
 //            Random random = new Random();
 //            String reg = String.valueOf(random.nextInt(10,24))+"LM"+ String.valueOf(random.nextInt(1000,5000));
-//            int x = random.nextInt(19);
-//            int y = random.nextInt(19);
-//
-//            new Taxi(reg,map,x,y);
+//            Location loc = map.getRandomLoc();
+//            new Taxi(reg,map,loc.getX(),loc.getY());
 //        }
         map.printMap();
         Customer current = null;
@@ -68,10 +66,15 @@ public class Main implements VehicleHiringTest {
                 }
             }
 
-            if(yReq>0 && yReq<map.getMapRadius() && xReq>0 && xReq<map.getMapRadius() ){
+            Location potentialLoc = map.getLocation(xReq, yReq);
+            if(!potentialLoc.isRoad()){
+                System.out.println("Not a valid road! Please pick a tile with a * for a road.");
+                continue;
+            } else {
                 RideRequestSystem rideRequestSystem = new RideRequestSystem(map, current, map.getLocation(xReq, yReq));
                 rideRequestSystem.requestRide();
             }
+
         }
 
     }

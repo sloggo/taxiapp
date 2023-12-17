@@ -28,23 +28,24 @@ public class Location {
 
     public LinkedList<Taxi> getTaxis(){ return taxis; }
 
+    public Location(int x, int y, boolean road){
+        this.x = x;
+        this.y = y;
+        this.customers = new LinkedList<>();
+        this.taxis = new LinkedList<>();
+        this.road = road;
+    }
+
     public String getMapTile() {
         if(isTaxisOnTile()){
             return "t\t";
         } else if(isCustomersOnTile()){
             return "c\t";
         } else if(road){
-            return "-\t";
+            return "*\t";
         } else{
             return ".\t";
         }
-    }
-
-    public Location(int x, int y){
-        this.x = x;
-        this.y = y;
-        this.customers = new LinkedList<>();
-        this.taxis = new LinkedList<>();
     }
 
     public void addUser(Customer customer){
@@ -99,5 +100,9 @@ public class Location {
         users.addAll(customers);
 
         return users;
+    }
+
+    public boolean isRoad() {
+        return road;
     }
 }

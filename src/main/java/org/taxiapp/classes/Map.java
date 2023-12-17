@@ -15,6 +15,7 @@ public class Map {
     private int mapRadius;
     private LinkedList<Taxi> taxis;
     private LinkedList<Customer> customers;
+    private List<String> roads;
     public Map(int r){
         this.test = false;
         this.id = UUID.randomUUID().toString();
@@ -22,10 +23,26 @@ public class Map {
         this.taxis = new LinkedList<>();
         this.grid = new Location[r][r];
         this.mapRadius = r;
+        this.roads = new ArrayList<>(Arrays.asList(
+                "0,0", "1,0", "1,1", "1,2", "1,3", "1,4", "1,5", "1,6", "1,7",
+                "2,0", "2,3", "2,8",
+                "3,0", "3,1", "3,2", "3,3", "3,4", "3,5", "3,8",
+                "4,0", "4,5", "4,8",
+                "5,0", "5,5", "5,8",
+                "6,0", "6,1", "6,2", "6,3", "6,4", "6,5", "6,6", "6,7", "6,8", "6,9",
+                "7,5",
+                "8,5",
+                "9,5"
+        ));
 
         for(int i = 0; i< getMapRadius(); i++) { // columns
             for (int j = 0; j < getMapRadius(); j++) { // rows
-                this.grid[i][j] = new Location(i, j); // init new location item;
+                if(roads.contains(i+","+j)){
+                    this.grid[i][j] = new Location(i, j, true); // init new location item;
+                } else{
+                    this.grid[i][j] = new Location(i, j, false); // init new location item;
+
+                }
             }
         }
     }
@@ -37,10 +54,33 @@ public class Map {
         this.taxis = new LinkedList();
         this.grid = new Location[r][r];
         this.mapRadius = r;
+        this.roads = new ArrayList<>(Arrays.asList(
+                        "3,0", "4,0", "5,0", "6,0", "7,0", "8,0", "9,0", "10,0", "11,0", "12,0",
+                        "0,1", "12,1",
+                        "0,2", "12,2",
+                        "0,3", "12,3",
+                        "0,4", "1,4", "2,4", "3,4", "4,4", "5,4", "6,4", "7,4", "8,4", "9,4", "10,4", "11,4", "12,4",
+                        "0,5", "12,5",
+                        "0,6", "1,6", "2,6", "3,6", "4,6", "5,6", "6,6", "7,6", "8,6", "9,6", "10,6", "11,6", "12,6",
+                        "6,7", "7,7", "8,7", "9,7", "10,7", "11,7", "12,7",
+                        "6,8", "7,8", "8,8", "9,8", "10,8", "11,8", "12,8",
+                        "6,9", "7,9", "8,9", "9,9", "10,9", "11,9", "12,9",
+                        "0,10", "1,10", "2,10", "3,10", "4,10", "5,10", "6,10", "7,10", "8,10", "9,10", "10,10", "11,10", "12,10",
+                        "0,11", "12,11",
+                        "0,12", "12,12",
+                        "0,13", "12,13",
+                        "0,14", "12,14",
+                        "0,15", "1,15", "2,15", "3,15", "4,15", "5,15", "6,15", "7,15", "8,15", "9,15", "10,15", "11,15", "12,15"
+        ));
 
-        for(int i=0; i<r; i++) { // columns
-            for (int j = 0; j < r; j++) { // rows
-                this.grid[i][j] = new Location(i, j); // init new location item;
+        for(int i = 0; i< getMapRadius(); i++) { // columns
+            for (int j = 0; j < getMapRadius(); j++) { // rows
+                if(roads.contains(i+","+j)){
+                    this.grid[i][j] = new Location(i, j, true); // init new location item;
+                } else{
+                    this.grid[i][j] = new Location(i, j, false); // init new location item;
+
+                }
             }
         }
 
@@ -147,10 +187,19 @@ public class Map {
 
 
     public Location getRandomLoc(){
-        Random rand = new Random();
-        int randomX = rand.nextInt(getMapRadius());
-        int randomY = rand.nextInt(getMapRadius());
-        return grid[randomX][randomY];
+        boolean valid = false;
+        Location loc;
+        while(!valid){
+            Random rand = new Random();
+            int randomX = rand.nextInt(getMapRadius());
+            int randomY = rand.nextInt(getMapRadius());
+            loc = grid[randomX][randomY];
+            if(loc.isRoad()){
+                valid = true;
+                return loc;
+            }
+        }
+        return null;
     }
 
     public Location getLocation(int x, int y){

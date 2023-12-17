@@ -11,11 +11,14 @@ public class LocationNode {
     private boolean open;
     private boolean goal;
     private boolean start;
+    private boolean road;
 
-    public LocationNode(int x, int y) {
+    public LocationNode(int x, int y, boolean road) {
         this.x = x;
         this.y = y;
+        this.road = road;
     }
+    public boolean isRoad(){return road;}
 
     public boolean isChecked() {
         return checked;
