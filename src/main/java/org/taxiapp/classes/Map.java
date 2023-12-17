@@ -74,6 +74,24 @@ public class Map {
         taxis.remove(taxi);
     }
 
+    public Customer findUser(String id){
+        if(!customers.isEmpty()){
+            customers.getHead();
+            while (customers.hasNext()) {
+                Customer node = customers.retrieveCurrent();
+                if(node.getName().equals(id)){
+                    return node;
+                }
+                taxis.moveForward();
+            }
+            Customer node = customers.retrieveCurrent();
+            if(node.getName().equals(id)){
+                return node;
+            }
+        }
+        return null;
+    }
+
     public void importCustomers() throws IOException {
         File yourFile = new File(id+"-customers.csv");
         yourFile.createNewFile(); // if file already exists will do nothing

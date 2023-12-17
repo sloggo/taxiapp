@@ -93,6 +93,7 @@ public class Taxi extends User implements Subject {
     }
     @Override
     public void notifyObservers() {
+        if(observers.isEmpty()){return;}
         observers.getHead();
         while (observers.hasNext()) {
             Observer o = observers.retrieveCurrent();

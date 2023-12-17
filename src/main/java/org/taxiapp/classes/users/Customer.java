@@ -69,4 +69,8 @@ public class Customer extends User implements Observer {
     public void detach(Subject s){
         s.detachObserver(this);
     }
+
+    public String getName() {
+        return name;
+    }
 }
