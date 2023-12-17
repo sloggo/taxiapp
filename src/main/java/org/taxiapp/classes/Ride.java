@@ -4,24 +4,24 @@ import org.taxiapp.classes.users.Customer;
 import org.taxiapp.classes.users.Pathfinding;
 import org.taxiapp.classes.users.Taxi;
 
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Ride {
     private Map map;
+    private float cost;
     private String rideId;
     private Customer passenger;
     private Taxi driver;
     private Location destination;
-    private Bill bill;
 
-    public Ride(String rideId, Map map, Customer customer, Taxi driver, Location destination){
+    public Ride(String rideId, Map map, Customer customer, Taxi driver, Location destination, float cost){
         this.map = map;
         this.rideId = rideId;
         this.passenger = customer;
         this.driver = driver;
         this.destination = destination;
-        this.bill = new Bill();
-
+        this.cost = cost;
         customer.setCurrentRide(this);
         driver.setCurrentRide(this);
     }
@@ -30,8 +30,19 @@ public class Ride {
         // taxi moves to customer
         LinkedList<LocationNode> routeToCustomer = getTaxiToCustomerRoute();
         driver.moveTo(routeToCustomer);
+        Thread.sleep(1000);
+        System.out.println("Arrived! Get in the car with reg: "+driver.getId());
+        map.printMap();
 
+        // begin to move together
+        setUpDriverCustomerObserver();
+        LinkedList<LocationNode> taxiRoute = getTaxiRoute();
+        driver.moveTo(taxiRoute);
+        map.printMap();
 
+        System.out.println("You have arrived at your destination!");
+        System.out.println("Your bill comes to a total of; "+cost);
+        rateTaxi();
     }
 
     public void setUpDriverCustomerObserver(){
@@ -46,5 +57,22 @@ public class Ride {
     public LinkedList<LocationNode> getTaxiToCustomerRoute(){
         Pathfinding pathfinder = new Pathfinding();
         return pathfinder.search(map.getMapRadius(), driver.getLocation(), passenger.getLocation());
+    }
+
+    public void rateTaxi(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please rate your taxi from 1-5:");
+        boolean valid = false;
+        int rating = 0;
+        while(!valid){
+            rating = scanner.nextInt();
+            if(rating > 5 || rating < 0){
+                System.out.println("Invalid rating, try again.");
+            } else{
+                valid = true;
+            }
+        }
+        driver.addRating(rating);
+
     }
 }

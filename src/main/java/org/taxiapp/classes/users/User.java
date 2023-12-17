@@ -13,17 +13,12 @@ public abstract class User {
     }
     protected Map map;
     protected Location location;
-    protected Rating[] ratings;
     protected Ride currentRide;
     protected String id;
     protected String type;
 
     public Location getLocation() {
         return location;
-    }
-
-    public double getRating() {
-        return 0;
     }
 
     public Ride getCurrentRide() {

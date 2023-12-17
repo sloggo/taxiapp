@@ -119,7 +119,7 @@ public class RideRequestSystem {
             if(declinedTaxis.contains(potentialTaxi.getId())){continue;}
             if(offerTaxi(potentialTaxi)){
                 userAccepted = true;
-                Ride r = new Ride(rideId, map, requester, potentialTaxi, destination);
+                Ride r = new Ride(rideId, map, requester, potentialTaxi, destination, potentialTaxi.getCost(requester.getLocation(),destination));
                 r.startRide();
             } else{
                 declinedTaxis.append(potentialTaxi.getId());
@@ -137,6 +137,7 @@ public class RideRequestSystem {
         System.out.println("------------------------");
         System.out.println(taxi.getId());
         System.out.println(taxi.getRating());
+        System.out.println(taxi.getCost(requester.getLocation(), destination)+" euro");
 
         System.out.println("\n Accept? Y/N");
         boolean validInput = false;

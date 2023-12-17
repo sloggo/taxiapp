@@ -11,6 +11,9 @@ import org.taxiapp.interfaces.Subject;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+
+import static java.lang.Math.abs;
 
 public class Taxi extends User implements Subject {
     private int rate; // eur/km base rate
@@ -37,6 +40,12 @@ public class Taxi extends User implements Subject {
         this.type = "taxi";
         this.ratings = ratings;
         map.addTaxi(this);
+    }
+
+    public float getCost(Location start, Location destination){
+        int xDiff = abs(start.getX()-destination.getX());
+        int yDiff = abs(start.getY()-destination.getY());
+        return rate*(xDiff+yDiff);
     }
 
     public void addTaxiToCSV(){
@@ -104,10 +113,41 @@ public class Taxi extends User implements Subject {
             int newX = node.getX();
             int newY = node.getY();
             setLocation(newX,newY);
-            System.out.println();
+
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             map.printMap();
+
             Thread.sleep(500);
             path.moveForward();
+        }
+        LocationNode node = path.retrieveCurrent();
+        int newX = node.getX();
+        int newY = node.getY();
+        setLocation(newX,newY);
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        map.printMap();
+
+        Thread.sleep(500);
+    }
+
+    public void addRating(int rating){
+        ratings = Arrays.copyOf(ratings, ratings.length+1);
+        ratings[ratings.length-1] = rating;
+    }
+
+    public float getRating(){
+        int sum = 0;
+        int count = ratings.length;
+        for(int i: ratings){
+            sum += i;
+        }
+        if(sum ==0|| count==0){
+            return 0;
+        } else{
+            return sum/count;
         }
     }
 }
