@@ -1,7 +1,9 @@
 package org.taxiapp.classes;
 
 import org.taxiapp.classes.users.Customer;
+import org.taxiapp.classes.users.Pathfinding;
 import org.taxiapp.classes.users.Taxi;
+import org.taxiapp.interfaces.Observer;
 
 import java.io.BufferedReader;
 import java.io.File;

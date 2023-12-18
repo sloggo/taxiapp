@@ -47,7 +47,7 @@ public class Taxi extends User implements Subject {
     public float getCost(Location start, Location destination){
         int xDiff = abs(start.getX()-destination.getX());
         int yDiff = abs(start.getY()-destination.getY());
-        return (rate*(xDiff+yDiff)/10);
+        return (rate*(xDiff+yDiff)/10)+5;
     }
 
     public void addTaxiToCSV(){
