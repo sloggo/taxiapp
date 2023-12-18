@@ -26,7 +26,7 @@ public class Taxi extends User implements Subject {
         Random rand = new Random();
         observers = new LinkedList<>();
         setLocation(x,y);
-        this.rate = rand.nextInt(7,25);
+        this.rate = rand.nextInt(25 - 7 + 1) + 7;
         this.type = "taxi";
         this.ratings = new int[0];
         map.addTaxi(this);
