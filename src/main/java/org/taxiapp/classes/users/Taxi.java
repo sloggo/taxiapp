@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Random;
 
 import static java.lang.Math.abs;
 
@@ -22,9 +23,10 @@ public class Taxi extends User implements Subject {
 
     public Taxi(String registration, Map map, int x, int y){
         super(registration, map);
+        Random rand = new Random();
         observers = new LinkedList<>();
         setLocation(x,y);
-        this.rate = 10;
+        this.rate = rand.nextInt(7,25);
         this.type = "taxi";
         this.ratings = new int[0];
         map.addTaxi(this);
@@ -45,7 +47,7 @@ public class Taxi extends User implements Subject {
     public float getCost(Location start, Location destination){
         int xDiff = abs(start.getX()-destination.getX());
         int yDiff = abs(start.getY()-destination.getY());
-        return rate*(xDiff+yDiff);
+        return (rate*(xDiff+yDiff)/10);
     }
 
     public void addTaxiToCSV(){

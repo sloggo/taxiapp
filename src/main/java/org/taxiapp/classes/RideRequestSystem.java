@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class RideRequestSystem {
-    private LinkedList<String> declinedTaxis;
+    private List<String> declinedTaxis;
     private Location destination;
     private int currentRadius;
     private int radiusLimit;
@@ -25,7 +25,7 @@ public class RideRequestSystem {
         this.destination = destination;
         this.currentRadius = 1;
         this.radiusLimit = map.getMapRadius();
-        this.declinedTaxis = new LinkedList<>();
+        this.declinedTaxis = new ArrayList<>();
     }
 
     public Taxi closestTaxi(){
@@ -33,20 +33,29 @@ public class RideRequestSystem {
         boolean taxisFound = false;
         // first pass check customer location for taxis in immediate vicinity
         if(!taxis.isEmpty()){
-            taxisFound = true;
-            return taxis.get(0);
-        } else {
+            for(int i=0; i< taxis.length(); i++){
+                if(!declinedTaxis.contains(taxis.get(i).getId())){
+                    taxisFound = true;
+                    return taxis.get(i);
+                }
+            }
+        }
+
+            // incremental increasing loop
             while(!taxisFound && currentRadius < radiusLimit){
                 try{
                     taxis = incrementSearch();
                     if(!taxis.isEmpty()){
                         taxisFound=true;
-                        return taxis.get(0);
+                        for(int i=0; i< taxis.length(); i++){
+                            if(!declinedTaxis.contains(taxis.get(i).getId())){
+                                return taxis.get(i);
+                            }
+                        }
                     }
                 } catch(IndexOutOfBoundsException e){
                     return null;
                 }
-            }
         }
         return null;
     }
@@ -113,16 +122,16 @@ public class RideRequestSystem {
         currentRadius = 1;
         boolean userAccepted = false;
         boolean noTaxisLeft = false;
+
         while(!userAccepted && !noTaxisLeft){
             Taxi potentialTaxi = closestTaxi();
             if(currentRadius == radiusLimit || potentialTaxi == null){noTaxisLeft = true; continue;}
-            if(declinedTaxis.contains(potentialTaxi.getId())){continue;}
             if(offerTaxi(potentialTaxi)){
                 userAccepted = true;
                 Ride r = new Ride(rideId, map, requester, potentialTaxi, destination, potentialTaxi.getCost(requester.getLocation(),destination));
                 r.startRide();
             } else{
-                declinedTaxis.append(potentialTaxi.getId());
+                declinedTaxis.add(potentialTaxi.getId());
             }
             currentRadius++;
         }

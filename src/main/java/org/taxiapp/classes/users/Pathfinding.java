@@ -73,8 +73,13 @@ public class Pathfinding {
         this.goal = nodeMap[destination.getX()][destination.getY()];
         goal.setGoal();
         this.current = start;
+        if(current == goal){
+            LinkedList<LocationNode> path =  new LinkedList<>();
+            path.append(current);
+            return path;
+        }
 
-        getCost(start);
+            getCost(start);
         getCost(goal);
 
         while (goalReached==false){

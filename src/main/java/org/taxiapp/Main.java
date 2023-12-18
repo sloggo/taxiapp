@@ -48,28 +48,29 @@ public class Main implements VehicleHiringTest {
             System.out.println("Where are we headed to?");
             int xReq = -1;
 
-            while(xReq < 0 || xReq >= map.getMapRadius()){
+            while (xReq < 0 || xReq >= map.getMapRadius()) {
                 System.out.println("X:");
                 xReq = scanner.nextInt();
-                if(xReq < 0 || xReq >= map.getMapRadius()){
-                    System.out.println("Not a valid coordinate, try between 0 and "+(map.getMapRadius()-1));
+                scanner.nextLine(); // Consume the newline character
+                if (xReq < 0 || xReq >= map.getMapRadius()) {
+                    System.out.println("Not a valid coordinate, try between 0 and " + (map.getMapRadius() - 1));
                 }
             }
 
             int yReq = -1;
 
-            while(yReq < 0 || yReq >= map.getMapRadius()){
+            while (yReq < 0 || yReq >= map.getMapRadius()) {
                 System.out.println("Y:");
                 yReq = scanner.nextInt();
-                if(yReq < 0 || yReq >= map.getMapRadius()){
-                    System.out.println("Not a valid coordinate, try between 0 and "+(map.getMapRadius()-1));
+                scanner.nextLine(); // Consume the newline character
+                if (yReq < 0 || yReq >= map.getMapRadius()) {
+                    System.out.println("Not a valid coordinate, try between 0 and " + (map.getMapRadius() - 1));
                 }
             }
 
             Location potentialLoc = map.getLocation(xReq, yReq);
             if(!potentialLoc.isRoad()){
                 System.out.println("Not a valid road! Please pick a tile with a * for a road.");
-                continue;
             } else {
                 RideRequestSystem rideRequestSystem = new RideRequestSystem(map, current, map.getLocation(xReq, yReq));
                 rideRequestSystem.requestRide();
