@@ -134,7 +134,7 @@ public class Pathfinding {
 
             int bestNodeIndex = 0;
             int bestNodeFCost = Integer.MAX_VALUE;
-            openList.pointToHead();
+            openList.getHead();
             for (int i = 0; i < openList.length(); i++) {
                 int fCost = openList.get(i).getfCost();
                 int gCost = openList.get(i).getgCost();

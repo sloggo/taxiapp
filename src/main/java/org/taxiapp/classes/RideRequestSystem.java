@@ -98,7 +98,7 @@ public class RideRequestSystem {
 
         // loop through left and right row
         for(int i=yEnd+1; i<yStart; i++){
-            validTaxis.pointToHead();
+            validTaxis.getHead();
             Location leftLocation = map.getLocation(xStart, i);
             Location rightLocation = map.getLocation(xEnd, i);
             Location[] locationsToSearch = {leftLocation, rightLocation};

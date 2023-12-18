@@ -20,9 +20,11 @@ public class LinkedList<T> {
     public boolean isEmpty(){
         return head == null;
     }
+
     public int length(){
         return n;
     }
+
     public Boolean hasNext(){
         if(head == null){
             return false;
@@ -44,7 +46,7 @@ public class LinkedList<T> {
         }
 
     }
-    public void pointToHead(){ current = head;}
+    //public void pointToHead(){ current = head;}
     public void append(T value){
         Node newNode = new Node(value);
         if(head == null){
@@ -57,6 +59,7 @@ public class LinkedList<T> {
             moveForward();
         }
         current.next = newNode;
+        getHead();
         n++;
     }
     public void remove(T e){
@@ -89,9 +92,14 @@ public class LinkedList<T> {
     }
 
     public void addAll(LinkedList<? extends T> list){
-        list.pointToHead();
-        while(list.hasNext()){
+        list.getHead();
+
+        while(list.current!=null){
             this.append(list.retrieveCurrent());
+
+            if(list.current.next == null){
+                break;
+            }
             list.moveForward();
         }
     }
@@ -101,7 +109,7 @@ public class LinkedList<T> {
         if(isEmpty()){
             return null;
         }
-        pointToHead();
+        getHead();
         if(i==0){
             return current.data;
         }
@@ -119,12 +127,13 @@ public class LinkedList<T> {
         if(isEmpty()){
             return false;
         }
-        pointToHead();
-        while (hasNext()){
+        getHead();
+
+        while (current!=null){
             if(current.data == e){
                 return true;
             }
-            moveForward();
+            current = current.next;
         }
         return false;
     }
