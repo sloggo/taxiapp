@@ -78,12 +78,12 @@ public class Taxi extends User implements Subject {
         location.addUser(this);
         notifyObservers();
     }
-    public void calcPath(Location destination){
+    /*public void calcPath(Location destination){
         Pathfinding p = new Pathfinding();
         LinkedList<LocationNode> path = p.search(map.getMapRadius(),this.location,destination);
         path.getHead();
         path.printList();
-    }
+    }*/
 
     @Override
     public void attachObserver(Observer observer) {
