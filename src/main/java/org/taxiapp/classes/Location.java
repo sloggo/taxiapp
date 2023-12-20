@@ -38,13 +38,13 @@ public class Location {
 
     public String getMapTile() {
         if (isTaxisOnTile()) {
-            return "\u001B[31m" + "t\t" + "\u001B[0m"; // Red color for taxis
+            return "\u001B[31m" + "t " + "\u001B[0m"; // Red color for taxis
         } else if (isCustomersOnTile()) {
-            return "\u001B[34m" + "c\t" + "\u001B[0m"; // Blue color for customers
+            return "\u001B[34m" + "c " + "\u001B[0m"; // Blue color for customers
         } else if (road) {
-            return "*\t";
+            return "* ";
         } else {
-            return ".\t";
+            return ". ";
         }
     }
 

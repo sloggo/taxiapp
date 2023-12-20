@@ -20,10 +20,23 @@ public class Taxi extends User implements Subject {
     private int rate; // eur/km base rate
     private int[] ratings;
     private LinkedList<Observer> observers;
+    private String size;
 
     public Taxi(String registration, Map map, int x, int y){
         super(registration, map);
         Random rand = new Random();
+        int size = rand.nextInt(3);
+        switch(size){
+            case (0):
+                this.size = "small";
+                break;
+            case( 1 ):
+                this.size = "medium";
+                break;
+            case(2):
+                this.size = "large";
+                break;
+        }
         observers = new LinkedList<>();
         setLocation(x,y);
         this.rate = rand.nextInt(25 - 7 + 1) + 7;
@@ -34,13 +47,41 @@ public class Taxi extends User implements Subject {
             addTaxiToCSV();
         }
     }
+
+    public Taxi(String registration, Map map, int x, int y, String size){
+        super(registration, map);
+        Random rand = new Random();
+        observers = new LinkedList<>();
+        setLocation(x,y);
+        this.rate = rand.nextInt(25 - 7 + 1) + 7;
+        this.type = "taxi";
+        this.size = size;
+        this.ratings = new int[0];
+        map.addTaxi(this);
+        if(!map.isTest()){
+            addTaxiToCSV();
+        }
+    }
     public Taxi(String registration, Map map, int x, int y, int rate, int[] ratings){
         super(registration, map);
+        Random rand = new Random();
+        int size = rand.nextInt(2);
         observers = new LinkedList<>();
         setLocation(x,y);
         this.rate = rate;
         this.type = "taxi";
         this.ratings = ratings;
+        switch(size){
+            case (0):
+                this.size = "small";
+                break;
+            case( 1 ):
+                this.size = "medium";
+                break;
+            case(2):
+                this.size = "large";
+                break;
+        }
         map.addTaxi(this);
     }
 
@@ -77,6 +118,9 @@ public class Taxi extends User implements Subject {
         location = map.getLocation(x,y);
         location.addUser(this);
         notifyObservers();
+    }
+    public String getSize(){
+        return size;
     }
     /*public void calcPath(Location destination){
         Pathfinding p = new Pathfinding();

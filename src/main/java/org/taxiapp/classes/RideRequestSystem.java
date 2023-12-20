@@ -18,6 +18,18 @@ public class RideRequestSystem {
     private String rideId;
     private Map map;
     private Customer requester;
+    private String size;
+    public RideRequestSystem(Map map, Customer requester, Location destination, String size){
+        this.rideId = UUID.randomUUID().toString();
+        this.map = map;
+        this.requester = requester;
+        this.destination = destination;
+        this.currentRadius = 1;
+        this.radiusLimit = map.getMapRadius();
+        this.declinedTaxis = new ArrayList<>();
+        this.size = size;
+    }
+
     public RideRequestSystem(Map map, Customer requester, Location destination){
         this.rideId = UUID.randomUUID().toString();
         this.map = map;
@@ -26,6 +38,7 @@ public class RideRequestSystem {
         this.currentRadius = 1;
         this.radiusLimit = map.getMapRadius();
         this.declinedTaxis = new ArrayList<>();
+        this.size = null;
     }
 
     public Taxi closestTaxi(){
@@ -34,7 +47,7 @@ public class RideRequestSystem {
         // first pass check customer location for taxis in immediate vicinity
         if(!taxis.isEmpty()){
             for(int i=0; i< taxis.length(); i++){
-                if(!declinedTaxis.contains(taxis.get(i).getId())){
+                if(!declinedTaxis.contains(taxis.get(i).getId()) && (taxis.get(i).getSize().equals(size) || size == null)){
                     taxisFound = true;
                     return taxis.get(i);
                 }
@@ -48,7 +61,7 @@ public class RideRequestSystem {
                     if(!taxis.isEmpty()){
                         taxisFound=true;
                         for(int i=0; i< taxis.length(); i++){
-                            if(!declinedTaxis.contains(taxis.get(i).getId())){
+                            if(!declinedTaxis.contains(taxis.get(i).getId()) && (taxis.get(i).getSize().equals(size) || size == null)){
                                 return taxis.get(i);
                             }
                         }
@@ -125,13 +138,15 @@ public class RideRequestSystem {
 
         while(!userAccepted && !noTaxisLeft){
             Taxi potentialTaxi = closestTaxi();
-            if(currentRadius == radiusLimit || potentialTaxi == null){noTaxisLeft = true; continue;}
+            if(currentRadius == radiusLimit){noTaxisLeft = true; continue;}
             if(offerTaxi(potentialTaxi)){
                 userAccepted = true;
                 Ride r = new Ride(rideId, map, requester, potentialTaxi, destination, potentialTaxi.getCost(requester.getLocation(),destination));
                 r.startRide();
             } else{
-                declinedTaxis.add(potentialTaxi.getId());
+                if(potentialTaxi != null){
+                    declinedTaxis.add(potentialTaxi.getId());
+                }
             }
             currentRadius++;
         }
@@ -141,23 +156,26 @@ public class RideRequestSystem {
     }
 
     private boolean offerTaxi(Taxi taxi) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Taxi found!");
-        System.out.println("------------------------");
-        System.out.println(taxi.getId());
-        System.out.println(taxi.getRating());
-        System.out.println(taxi.getCost(requester.getLocation(), destination)+" euro");
+        if(taxi != null){
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Taxi found!");
+            System.out.println("------------------------");
+            System.out.println(taxi.getId());
+            System.out.println(taxi.getRating());
+            System.out.println(taxi.getCost(requester.getLocation(), destination)+" euro");
+            System.out.println("Size: "+taxi.getSize());
 
-        System.out.println("\n Accept? Y/N");
-        boolean validInput = false;
-        while(!validInput){
-            String input = scanner.nextLine().toLowerCase().trim();
-            if(input.equals("y")){
-                validInput=true;
-                return true;
-            } else if(input.equals("n")){
-                validInput=true;
-                return false;
+            System.out.println("\n Accept? Y/N");
+            boolean validInput = false;
+            while(!validInput){
+                String input = scanner.nextLine().toLowerCase().trim();
+                if(input.equals("y")){
+                    validInput=true;
+                    return true;
+                } else if(input.equals("n")){
+                    validInput=true;
+                    return false;
+                }
             }
         }
         return false;
