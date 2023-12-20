@@ -48,12 +48,19 @@ public class CLI {
                 int input = scanner.nextInt();
 
                 if(input >= 0 && input <=3){
-                    size = switch (input) {
-                        case (0) -> null;
-                        case (1) -> "small";
-                        case (2) -> "medium";
-                        case (3) -> "large";
-                        default -> size;
+                    switch (input) {
+                        case (0):
+                            size = null;
+                            break;
+                        case (1):
+                            size="small";
+                            break;
+                        case (2):
+                            size = "medium";
+                            break;
+                        case (3):
+                            size = "large";
+                            break;
                     };
                 }
             }

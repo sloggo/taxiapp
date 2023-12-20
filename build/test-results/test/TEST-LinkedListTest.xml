@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LinkedListTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2023-12-20T10:54:07" hostname="Salahs-Macbook-Pro.local" time="0.032">
+  <properties/>
+  <testcase name="containsTest()" classname="LinkedListTest" time="0.008"/>
+  <testcase name="validHasNextTest()" classname="LinkedListTest" time="0.005"/>
+  <testcase name="emptyLengthTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="nullNextHasNextTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="retrieveCurrentTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="notEmptyTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="outsideRangeGetTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="moveForwardTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="isEmptyTest()" classname="LinkedListTest" time="0.001"/>
+  <testcase name="emptyGetTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="getTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="headGetTest()" classname="LinkedListTest" time="0.001"/>
+  <testcase name="emptyAfterRemovalTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="retrieveNullTest()" classname="LinkedListTest" time="0.001"/>
+  <testcase name="lengthAfterRemovalTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="nullMoveForwardTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="getHeadAfterRemovalTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="notContainsTest()" classname="LinkedListTest" time="0.001"/>
+  <testcase name="moveBackwardTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="emptyHasNextTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="emptyContains()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="headMoveBackwardTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="retrieveHeadTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="getHeadTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="addAllTest()" classname="LinkedListTest" time="0.0"/>
+  <testcase name="lengthAfterAdditionTest()" classname="LinkedListTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
