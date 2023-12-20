@@ -101,7 +101,6 @@ public class RideRequestSystem {
             for(Location location: locationsToSearch){
                 if(location.isTaxisOnTile()){ // improve efficiency by not searching empty tiles, improves from 27ms to 25ms
                     LinkedList<Taxi> taxisOnTileT = location.getTaxis();
-                    taxisOnTileT.printList();
                     if(!taxisOnTileT.isEmpty()){
                         return taxisOnTileT;
                     }
@@ -119,7 +118,6 @@ public class RideRequestSystem {
             for(Location location: locationsToSearch){ // get all taxis from both sides
                 if(location.isTaxisOnTile()){
                     LinkedList<Taxi> taxisOnTile = location.getTaxis();
-                    taxisOnTile.printList();
                     if(!taxisOnTile.isEmpty()){
                         return taxisOnTile;
                     }

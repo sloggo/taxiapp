@@ -43,7 +43,7 @@ public class CLI {
             System.out.println("Not a valid road! Please pick a tile with a * for a road.");
         } else {
             String size = "no";
-            while(size.equals("no")){
+            while(size!=null && size.equals("no")){
                 System.out.println("Choose a size; 0 for any, 1 for small, 2 for medium, 3 for large");
                 int input = scanner.nextInt();
 

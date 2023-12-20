@@ -1,11 +1,11 @@
 package org.taxiapp.classes.users;
 
 import org.taxiapp.classes.*;
+import org.taxiapp.classes.LinkedList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 
 public class Pathfinding {
@@ -17,28 +17,10 @@ public class Pathfinding {
     //private LinkedList<LocationNode> pathNodes = new LinkedList<>();
     boolean goalReached = false;
 
-    private List<String> roads = new ArrayList<>(Arrays.asList(
-            "0,2", "1,2", "2,2", "3,2", "4,2", "5,2", "6,2", "7,2", "8,2", "9,2", "10,2", "11,2", "12,2", "13,2", "14,2",
-            "0,3", "7,3", "8,3", "14,3",
-            "0,4", "7,4", "8,4", "14,4",
-            "0,5", "7,5", "8,5", "14,5",
-            "0,6", "1,6", "2,6", "3,6", "4,6", "5,6", "6,6", "7,6", "8,6", "9,6", "10,6", "11,6", "12,6", "13,6", "14,6",
-            "0,7", "7,7", "8,7", "14,7",
-            "0,8", "7,8", "8,8", "14,8",
-            "0,9", "7,9", "8,9", "14,9",
-            "0,10", "1,10", "2,10", "3,10", "4,10", "5,10", "6,10", "7,10", "8,10", "9,10", "10,10", "11,10", "12,10", "13,10", "14,10",
-            "0,11", "7,11", "8,11", "14,11",
-            "0,12", "7,12", "8,12", "14,12",
-            "0,13", "7,13", "8,13", "14,13",
-            "0,14", "1,14", "2,14", "3,14", "4,14", "5,14", "6,14", "7,14", "8,14", "9,14", "10,14", "11,14", "12,14", "13,14", "14,14",
-            "0,15", "7,15", "8,15", "14,15",
-            "0,16", "7,16", "8,16", "14,16",
-            "0,17", "7,17", "8,17", "14,17",
-            "0,18", "1,18", "2,18", "3,18", "4,18", "5,18", "6,18", "7,18", "8,18", "9,18", "10,18", "11,18", "12,18", "13,18", "14,18",
-            "0,19", "7,19", "8,19", "14,19"
-            ));
+    private List<String> roads;
 
     private void createMap(){
+        roads = CSVToRoad();
         this.nodeMap = new LocationNode[mapRadius][mapRadius];
         for(int i = 0; i< mapRadius; i++) { // columns
             for (int j = 0; j < mapRadius; j++) { // rows
@@ -51,6 +33,32 @@ public class Pathfinding {
             }
         }
     }
+
+    public static List<String> CSVToRoad(){
+        // Replace "your_file_path.csv" with the actual path to your CSV file
+        String filePath = "roads.csv";
+
+        try {
+            // Read the CSV file
+            Scanner scanner = new Scanner(new File(filePath));
+            scanner.useDelimiter("-");
+
+            // Convert the CSV data to a list of strings
+            List<String> dataAsList = new ArrayList<>();
+            while (scanner.hasNext()) {
+                dataAsList.add(scanner.next());
+            }
+
+            // Close the scanner
+            scanner.close();
+            return dataAsList;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     private void getCost(LocationNode node){
         //set G cost

@@ -5,6 +5,7 @@ CMD ["./gradlew", "clean", "bootJar"]
 COPY build/libs/*.jar app.jar
 ADD main-taxis.csv /
 ADD main-customers.csv /
+ADD roads.csv /
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-Dspring.data.mongodb.uri=mongodb://your-mongodb:27017/db-name", "-jar", "/app.jar"]
